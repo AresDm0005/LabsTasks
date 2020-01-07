@@ -188,83 +188,119 @@ namespace Lab7
             return false;
         }
 
-        public static bool CheckJagged(string txt, string txtSize, out string error)
+        public static bool CheckJagged(string txt, string txtSize, int acttionId, out string error)
         {
             error = "";
-
-            if (CheckSize(txtSize, ref error))
+            if (acttionId == 0)
             {
-                int row = Convert.ToInt32(txtSize);
-                string[] rows = txt.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                if (rows.Length == row)
+                if (CheckSize(txtSize, ref error))
                 {
-                    int okRows = 0;
-                    for (int i = 0; i < row; i++)
+                    int row = Convert.ToInt32(txtSize);
+                    string[] rows = txt.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (rows.Length == row)
                     {
-                        string[] nums = rows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                        if (CheckSize(nums[0], ref error))
+                        int okRows = 0;
+                        for (int i = 0; i < row; i++)
                         {
-                            int size = Convert.ToInt32(nums[0]);
+                            string[] nums = rows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                            if (nums.Length - 1 == size)
+                            if (CheckSize(nums[0], ref error))
                             {
-                                int okNums = 0;
+                                int size = Convert.ToInt32(nums[0]);
 
-                                for (int j = 1; j < size + 1; j++)
+                                if (nums.Length - 1 == size)
                                 {
-                                    int num;
-                                    try
+                                    int okNums = 0;
+
+                                    for (int j = 1; j < size + 1; j++)
                                     {
-                                        num = Convert.ToInt32(nums[j]);
-                                    }
-                                    catch (FormatException)
-                                    {
-                                        error = $"Элемент {j + 1} в строке {i + 1} - не целое число";
-                                        return false;
-                                    }
-                                    catch (OverflowException)
-                                    {
-                                        error = $"В качестве элемента {i + 1} в строке {i + 1} введено число, неподдерживаемое по величине";
-                                        return false;
+                                        int num;
+                                        try
+                                        {
+                                            num = Convert.ToInt32(nums[j]);
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            error = $"Элемент {j + 1} в строке {i + 1} - не целое число";
+                                            return false;
+                                        }
+                                        catch (OverflowException)
+                                        {
+                                            error = $"В качестве элемента {i + 1} в строке {i + 1} введено число, неподдерживаемое по величине";
+                                            return false;
+                                        }
+
+                                        if (num >= elementLowerBound && num <= elementUpperBound) okNums++;
+                                        else
+                                        {
+                                            error = $"Элемент {i + 1} в строке {i + 1} не попадает в рабочий диапазон от {elementLowerBound} до {elementUpperBound}!";
+                                            break;
+                                        }
                                     }
 
-                                    if (num >= elementLowerBound && num <= elementUpperBound) okNums++;
-                                    else
-                                    {
-                                        error = $"Элемент {i + 1} в строке {i + 1} не попадает в рабочий диапазон от {elementLowerBound} до {elementUpperBound}!";
-                                        break;
-                                    }
+                                    if (okNums == size) okRows++;
+                                    else return false;
                                 }
-
-                                if (okNums == size) okRows++;
-                                else return false;
+                                else
+                                {
+                                    error = $"Указанный размер строки {i + 1} не соответствует количеству введенных элементов";
+                                    return false;
+                                }
                             }
-                            else
-                            {
-                                error = $"Указанный размер строки {i + 1} не соответствует количеству введенных элементов";
-                                return false;
-                            }
+                            else return false;
                         }
-                        else return false;
-                    }
 
-                    if (okRows == row) return true;
+                        if (okRows == row) return true;
+                        else
+                        {
+                            error = "Ahtung! SOS KAK?";
+                            return false;
+                        }
+                    }
                     else
                     {
-                        error = "Ahtung! SOS KAK?";
+                        error = "Указанное количество строк не соответствует введенному количеству!";
                         return false;
                     }
                 }
+
+                return false;
+            }
+            else if (CheckSize(txtSize, ref error))
+            {
+                string[] nums = txt.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                int size = Convert.ToInt32(txtSize);
+                if (nums.Length == size)
+                {
+                    bool ok = true;
+                    for (int i = 0; i < size && ok; i++)
+                    {
+                        int num;
+                        try
+                        {
+                            num = Convert.ToInt32(nums[i]);
+                        }
+                        catch
+                        {
+                            error = $"Ошибка в вводе числа номер {i + 1}";
+                            ok = false;
+                        }
+                    }
+
+                    return ok;
+                }
                 else
                 {
-                    error = "Указанное количество строк не соответствует введенному количеству!";
-                    return false;
+                    error = "Введенное количество размеров строк не соответствует указанному";
+                    if (nums.Length > size) error += " (больше)";
+                    else error += " (меньше)";
                 }
             }
 
             return false;
         }
+      
     }
 }

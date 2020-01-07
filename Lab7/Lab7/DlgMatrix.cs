@@ -18,7 +18,7 @@ namespace Lab7
         private ErrorProvider size1Error = new ErrorProvider();
         private ErrorProvider size2Error = new ErrorProvider();
         
-        public DlgMatrix(int actionId)
+        public DlgMatrix(int actionId, int columnSize)
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -40,21 +40,43 @@ namespace Lab7
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 185);
             }
-            else
+            else if(actionId == 1)
             {
                 this.Size = new Size(420, 130);
                 this.Text = "Ввод размера матрицы";
 
-                sizeLable.Text = "Число строк:";
+                sizeLable.Text = "Число строк:";                
                 size2Label.Text = "Число столбцов";
+
+                
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 60);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 60);
 
+
                 elementsText.Hide();
                 elementsLabel.Hide();
+            } 
+            else
+            {
+                this.Size = new Size(420, 260);
+                this.Text = "Ввод матрицы";
+
+                elementsText.Size = new Size(255, 110);
+                sizeLable.Text = "Число строк:";
+                size2Label.Text = "Число столбцов";
+                elementsLabel.Text = "Элементы массива: ";
+
+                if (columnSize > 0)
+                {
+                    size2Text.Text = columnSize.ToString();
+                    size2Text.ReadOnly = true;
+                }
+
+                okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
+                cancelButton.Location = new Point(okButton.Location.X + 180, 185);
             }
-        }
+        } 
 
         private void DlgMatrix_Load(object sender, EventArgs e)
         {
@@ -64,7 +86,8 @@ namespace Lab7
         private void elementsText_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckMatrix(elementsText.Text, sizeText.Text, size2Text.Text, out errorMsg))
+            string txt = elementsText.Text;
+            if (!InputHandler.CheckMatrix(elementsText.Text, sizeText.Text, size2Text.Text, out errorMsg) || (actionId == 2 && txt.Trim() == "")) 
             {
                 e.Cancel = true;
                 elementsText.Select(0, elementsText.Text.Length);
@@ -122,7 +145,7 @@ namespace Lab7
 
         private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s]") && e.KeyChar != 8)
+            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
                 e.Handled = true;
             }

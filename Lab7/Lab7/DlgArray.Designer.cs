@@ -108,6 +108,7 @@
             this.Controls.Add(this.sizeLabel);
             this.Name = "DlgArray";
             this.Text = "DlgArray";
+            this.Load += new System.EventHandler(this.DlgArray_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

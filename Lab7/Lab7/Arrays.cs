@@ -14,6 +14,8 @@ namespace Lab7
         public const int MAX_SIZE = 20;
         public const int MIN_SIZE = 1;
 
+        public const string empty = "Пустой массив";
+
         private int type;
 
         private string strArr;
@@ -53,7 +55,7 @@ namespace Lab7
             {
                 case 0:
                     {
-                        if (arr.Length == 0) txt = "Пустой массив";
+                        if (arr.Length == 0) txt = empty;
                         for (int i = 0; i < arr.Length; i++)
                         {
                             txt += arr[i].ToString() + " ";
@@ -62,7 +64,7 @@ namespace Lab7
                     }
                 case 1:
                     {
-                        if (mtx.GetLength(0) == 0) txt = "Пустая матрица";
+                        if (mtx.GetLength(0) == 0) txt = empty;
                         for (int i = 0; i < mtx.GetLength(0); i++)
                         {
                             for (int j = 0; j < mtx.GetLength(1); j++)
@@ -71,11 +73,12 @@ namespace Lab7
                             }
                             txt += "\n\r";
                         }
+
                         break;
                     }
                 case 2:
                     {
-                        if (jag.GetLength(0) == 0) txt = "Пустой массив";
+                        if (jag.GetLength(0) == 0) txt = empty;
                         for (int i = 0; i < jag.GetLength(0); i++)
                         {
                             for (int j = 0; j < jag[i].Length; j++)
@@ -144,30 +147,34 @@ namespace Lab7
 
         private static int[,] MatrixAddRows(int[,] matr, int[,] addMatr)
         {
-            int row = matr.GetLength(0);
-            int col = addMatr.GetLength(1);
-            int k = addMatr.GetLength(0);
-            int[,] newMatr = new int[row + k, col];
-
-
-            for (int i = 0; i < row; i++)
+            int[,] newMatr;
+            if (matr.GetLength(0) == 0) newMatr = addMatr;
+            else
             {
-                for (int j = 0; j < col; j++)
+                int row = matr.GetLength(0);
+                int col = addMatr.GetLength(1);
+                int k = addMatr.GetLength(0);
+                newMatr = new int[row + k, col];
+
+
+                for (int i = 0; i < row; i++)
                 {
-                    newMatr[i, j] = matr[i, j];
+                    for (int j = 0; j < col; j++)
+                    {
+                        newMatr[i, j] = matr[i, j];
+                    }
+                }
+
+
+                for (int i = row; i < row + k; i++)
+                {
+                    int t = i - row;
+                    for (int j = 0; j < col; j++)
+                    {
+                        newMatr[i, j] = addMatr[t, j];
+                    }
                 }
             }
-
-
-            for (int i = row; i < row + k; i++)
-            {
-                int t = i - row;
-                for (int j = 0; j < col; j++)
-                {
-                    newMatr[i, j] = addMatr[t, j];
-                }
-            }
-
             return newMatr;
         }
 
@@ -313,7 +320,7 @@ namespace Lab7
         {
             int row = Convert.ToInt32(txtSize1);
             int col = Convert.ToInt32(txtSize2);
-
+            
             mtx = new int[row, col];
             string[] str = txt.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -330,7 +337,7 @@ namespace Lab7
             strMtx = this.ToString();
         }
 
-        public void Define(string txtSize)
+        public void DefineRandom(string txtSize)
         {
             int size = Convert.ToInt32(txtSize);
 
@@ -338,7 +345,7 @@ namespace Lab7
             strArr = this.ToString();
         }
 
-        public void Define(ref string txtSize1, ref string txtSize2)
+        public void DefineRandom(string txtSize1, string txtSize2)
         {
             int row = Convert.ToInt32(txtSize1);
             int col = Convert.ToInt32(txtSize2);
@@ -355,25 +362,38 @@ namespace Lab7
             {
                 arr = ArrayDeleteEven(arr);
 
-                if (arr.Length == 0) strArr = "Пустой массив";
+                if (arr.Length == 0)
+                {
+                    strArr = empty;
+                    arr = null;
+                }
                 else strArr = this.ToString();
             }
             else
             {
                 jag = JaggedDeleteZeroRow(jag);
 
-                if (jag.GetLength(0) == 0) strJag = "Пустой массив";
+                if (jag.GetLength(0) == 0)
+                {
+                    strJag = empty;
+                    jag = null;
+                }
                 else strJag = this.ToString();
             }
         }
 
-        public void PerformAction(string txt, string txtSize)
+        public void PerformAction(string txt, string txtSize, string txtSize2 = "")
         {
+            if (txt == "")
+            {
+                PerformActionMtxRandom(Convert.ToInt32(txtSize), Convert.ToInt32(txtSize2));
+                return;
+            }
             string[] str = txt.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
             int row = Convert.ToInt32(txtSize);
             int col;
-            if (mtx == null) col = str[0].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Length;
+            if (mtx == null) col = Convert.ToInt32(txtSize2);
             else col = mtx.GetLength(1);
 
             int[,] addMatr = new int[row, col];
@@ -401,6 +421,23 @@ namespace Lab7
                 strMtx = this.ToString();
             }
         }
+
+        private void PerformActionMtxRandom(int row, int col)
+        {
+            int[,] addMtx = new int[row, col];
+
+            Random rand = new Random();
+            for(int i = 0; i<row; i++)
+            {
+                for(int j = 0; j<col; j++)
+                {
+                    addMtx[i, j] = rand.Next(MIN_ELEM, MAX_ELEM);
+                }
+            }
+
+            mtx = MatrixAddRows(mtx, addMtx);
+            strMtx = this.ToString();
+        }
         #endregion
 
         #region BackToForm
@@ -417,6 +454,12 @@ namespace Lab7
         public string GetStrJag()
         {
             return this.strJag;
+        }
+
+        public int GetMtxColumns()
+        {
+            if (mtx == null) return 0;
+            return mtx.GetLength(1);
         }
         #endregion
     }

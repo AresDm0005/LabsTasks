@@ -47,6 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arrays.cs" />
+    <Compile Include="DlgArray.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgArray.Designer.cs">
+      <DependentUpon>DlgArray.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgJagged.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgJagged.Designer.cs">
+      <DependentUpon>DlgJagged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgMatrix.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgMatrix.Designer.cs">
+      <DependentUpon>DlgMatrix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputHandler.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +74,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DlgArray.resx">
+      <DependentUpon>DlgArray.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgJagged.resx">
+      <DependentUpon>DlgJagged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgMatrix.resx">
+      <DependentUpon>DlgMatrix.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

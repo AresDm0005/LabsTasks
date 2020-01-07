@@ -105,7 +105,7 @@ namespace Lab7
 
         private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s]") && e.KeyChar != 8)
+            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
                 e.Handled = true;
             }
@@ -119,6 +119,11 @@ namespace Lab7
         public string GetArrayText()
         {
             return elementsText.Text;
+        }
+
+        private void DlgArray_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

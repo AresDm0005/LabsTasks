@@ -78,7 +78,7 @@ namespace Lab7
         private void elementsText_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckJagged(elementsText.Text, sizeText.Text, out errorMsg))
+            if (!InputHandler.CheckJagged(elementsText.Text, sizeText.Text, actionId, out errorMsg))
             {
                 e.Cancel = true;
                 elementsText.Select(0, elementsText.Text.Length);
@@ -102,7 +102,7 @@ namespace Lab7
 
         private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s]") && e.KeyChar != 8)
+            if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
                 e.Handled = true;
             }
