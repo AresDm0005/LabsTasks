@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Lab7
 {
@@ -233,12 +234,147 @@ namespace Lab7
 
         private void saveFileOption_Click(object sender, EventArgs e)
         {
-            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "txt files (*.txt)|*.txt";
+            saveFileDialog.FilterIndex = 1;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog.FileName;
+
+                var fileStream = saveFileDialog.OpenFile(); 
+
+                using (StreamWriter writer = new StreamWriter(fileStream))
+                {
+                    int type = arraysComboBox.SelectedIndex;
+
+                    switch (type)
+                    {
+                        case 0:
+                            {
+                                writer.WriteLine(type.ToString());
+                                writer.WriteLine(arr.GetLength());
+                                writer.WriteLine(arr.GetStrArr());
+                                break;
+                            }
+                        case 1:
+                            {
+                                writer.WriteLine(type.ToString());
+                                writer.WriteLine(mtx.GetLength());
+                                writer.WriteLine(mtx.GetStrMtx());
+                                break;
+                            }
+                        case 2:
+                            {
+                                writer.WriteLine(type.ToString());
+                                writer.WriteLine(jag.GetLength());
+                                writer.WriteLine(jag.GetStrJag());
+                                break;
+                            }
+                    }
+                }
+            }
         }
 
         private void loadFileOption_Click(object sender, EventArgs e)
         {
-            
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt";
+                openFileDialog.FilterIndex = 1;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    string filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        string fileContent = reader.ReadToEnd();
+                        string error = "";
+                        try
+                        {
+                            string[] lines = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            int it = 0;
+                            foreach(string line in lines)
+                            {
+                                line.Trim();
+                                if (line == "") it++;
+                            }
+
+                            int type = 0;
+                            if(Regex.IsMatch(lines[0], @"[012]"))
+                            {
+                                type = Convert.ToInt32(lines[0]);
+                            }
+
+                            arraysComboBox.SelectedIndex = type;
+                            switch (type)
+                            {
+                                case 0:
+                                    {
+                                        if (InputHandler.CheckArray(lines[2], lines[1], out error))
+                                        {
+                                            arr.Define(lines[2], lines[1]);
+                                            arrayOutTextBox.Text = arr.GetStrArr();
+                                        }
+                                        break;
+                                    }
+                                case 1:
+                                    {
+                                        if (InputHandler.CheckSize(lines[1], ref error)){
+                                            int row = Convert.ToInt32(lines[1]);
+
+                                            string txt = "";
+                                            for(int i = 3; i<3+row; i++)
+                                            {
+                                                txt += lines[i] + "\n";
+                                            } 
+
+                                            if(InputHandler.CheckMatrix(txt, lines[1], lines[2], out error))
+                                            {
+                                                mtx.Define(txt, lines[1], lines[2]);
+                                                arrayOutTextBox.Text = mtx.GetStrMtx();
+                                            }
+                                        }
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        if(InputHandler.CheckSize(lines[1], ref error)){
+                                            int row = Convert.ToInt32(lines[1]);
+
+                                            string txt = "";
+                                            for (int i = 2; i < 2 + row; i++)
+                                            {
+                                                txt += lines[i] + "\n";
+                                            }
+
+                                            if(InputHandler.CheckJagged(txt, lines[1], 0, out error))
+                                            {
+                                                jag.Define(txt, lines[1]);
+                                                arrayOutTextBox.Text = jag.GetStrJag();
+                                            }
+                                        }
+                                        break;
+                                    }
+                            }
+                            if (error != "") MessageBox.Show($"Произошла ошибка при чтении файла:\n{error}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("При чтении файла произошла ошибка!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+            }
         }
     }
 }

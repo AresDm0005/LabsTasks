@@ -71,7 +71,7 @@ namespace Lab7
                             {
                                 txt += mtx[i, j].ToString() + " ";
                             }
-                            txt += "\n\r";
+                            if(i != mtx.GetLength(1) - 1) txt += "\r\n";
                         }
 
                         break;
@@ -85,7 +85,7 @@ namespace Lab7
                             {
                                 txt += jag[i][j].ToString() + " ";
                             }
-                            txt += "\n\r";
+                            if (i != jag.GetLength(0) - 1)  txt += "\r\n";
                         }
                         break;
                     }
@@ -460,6 +460,27 @@ namespace Lab7
         {
             if (mtx == null) return 0;
             return mtx.GetLength(1);
+        }
+
+        public string GetLength()
+        {
+            switch (type)
+            {
+                case 0:
+                    {
+                        return arr.Length.ToString();
+                    }
+                case 1:
+                    {
+                        return $"{mtx.GetLength(0)}\n{mtx.GetLength(1)}";
+                    }
+                case 2:
+                    {
+                        return jag.GetLength(0).ToString();
+                    }
+            }
+
+            return "";
         }
         #endregion
     }

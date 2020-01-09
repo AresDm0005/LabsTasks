@@ -17,7 +17,7 @@ namespace Lab7
 
         public static bool CheckSize(string txt, ref string error)
         {
-            string pat = @"^\d+$";
+            string pat = @"^\d+";
 
             if (Regex.IsMatch(txt, pat))
             {
@@ -41,7 +41,9 @@ namespace Lab7
             else
             {
                 error = "Размер должен быть целым числом";
+                
             }
+
 
             return false;
         }
