@@ -154,6 +154,10 @@ namespace Lab7
                         {
                             MessageBox.Show("Массив пуст!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         } 
+                        else if(arrayOutTextBox.Text == Arrays.INIT)
+                        {
+                            MessageBox.Show("Массив не инициализирован!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                         else
                         {
                             arr.PerformAction();
@@ -183,6 +187,10 @@ namespace Lab7
                         if (arrayOutTextBox.Text == Arrays.EMPTY)
                         {
                             MessageBox.Show("Массив пуст!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else if (arrayOutTextBox.Text == Arrays.INIT)
+                        {
+                            MessageBox.Show("Массив не инициализирован!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
