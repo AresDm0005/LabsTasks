@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab7
@@ -14,8 +9,8 @@ namespace Lab7
     public partial class DlgJagged : Form
     {
         private int actionId;
-        private ErrorProvider sizeError = new ErrorProvider();
-        private ErrorProvider elemError = new ErrorProvider();
+        private ErrorProvider sizeError;
+        private ErrorProvider elemError;
 
         public DlgJagged(int actionId)
         {
@@ -51,11 +46,11 @@ namespace Lab7
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 100);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 100);
             }
-        }
 
-        private void DlgJagged_Load(object sender, EventArgs e)
-        {
-
+            sizeError = new ErrorProvider();
+            sizeError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            elemError = new ErrorProvider();
+            elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         }
 
         private void sizeText_Validating(object sender, CancelEventArgs e)
@@ -72,13 +67,16 @@ namespace Lab7
 
         private void sizeText_Validated(object sender, EventArgs e)
         {
-            sizeError.SetError(sizeText, "");
+            sizeError.SetError(sizeText, String.Empty);
         }
 
         private void elementsText_Validating(object sender, CancelEventArgs e)
         {
-            string errorMsg = "";
-            if (!InputHandler.CheckJagged(elementsText.Text, sizeText.Text, actionId, out errorMsg))
+            string errorMsg;
+            bool condition = (actionId == 0) ? !InputHandler.CheckJagged(elementsText.Text, sizeText.Text, out errorMsg) :
+                !InputHandler.CheckJaggedRandom(elementsText.Text, sizeText.Text, out errorMsg);
+
+            if (condition)
             {
                 e.Cancel = true;
                 elementsText.Select(0, elementsText.Text.Length);
@@ -89,7 +87,7 @@ namespace Lab7
 
         private void elementsText_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, "");
+            elemError.SetError(elementsText, String.Empty);
         }
 
         private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
@@ -110,12 +108,12 @@ namespace Lab7
 
         public string GetSizeText()
         {
-            return sizeText.Text;
+            return sizeText.Text.Trim();
         }
 
         public string GetJaggedText()
         {
-            return elementsText.Text;
+            return elementsText.Text.Trim();
         }
     }
 }

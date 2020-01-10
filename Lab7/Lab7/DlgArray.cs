@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab7
@@ -14,18 +9,15 @@ namespace Lab7
     public partial class DlgArray : Form
     {
         private int actionId;
-        private ErrorProvider sizeError = new ErrorProvider();
-        private ErrorProvider elemError = new ErrorProvider();
+        private ErrorProvider sizeError;
+        private ErrorProvider elemError;
         
         public DlgArray(int actionId)
         {
-            InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            InitializeComponent();            
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             this.actionId = actionId;
-
-            //sizeError.SetError(sizeText, "Ничего не введено");
-            //elemError.SetError(elementsText, "Ничего не введено");
-
+            
             okButton.Text = "Ок";
             cancelButton.Text = "Отмена";
 
@@ -36,7 +28,7 @@ namespace Lab7
                 this.Size = new Size(400, 180);
                 this.Text = "Ввод одномерного массива";
 
-                elementsText.Size = new Size(235, 20);
+                elementsText.Size = new Size(230, 20);
                 elementsText.Multiline = false;
                 sizeLabel.Text = "Размер массива:";
                 elementsLabel.Text = "Элементы массива: ";
@@ -56,9 +48,13 @@ namespace Lab7
 
                 elementsText.Hide();
                 elementsLabel.Hide();
-                //elementsText.Enabled = false;
-                //elementsLabel.Enabled = false;
             }
+
+            sizeError = new ErrorProvider();
+            sizeError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+
+            elemError = new ErrorProvider();
+            elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         }
 
         private void sizeText_Validating(object sender, CancelEventArgs e)
@@ -75,12 +71,12 @@ namespace Lab7
 
         private void sizeText_Validated(object sender, EventArgs e)
         {
-            sizeError.SetError(sizeText, "");
+            sizeError.SetError(sizeText, String.Empty);
         }
 
         private void elementsText_Validating(object sender, CancelEventArgs e)
         {
-            string errorMsg = "";
+            string errorMsg;
             if (!InputHandler.CheckArray(elementsText.Text, sizeText.Text, out errorMsg))
             {
                 e.Cancel = true;
@@ -92,7 +88,7 @@ namespace Lab7
 
         private void elementsText_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, "");
+            elemError.SetError(elementsText, String.Empty);
         }
 
         private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
@@ -113,17 +109,12 @@ namespace Lab7
 
         public string GetSizeText()
         {
-            return sizeText.Text;
+            return sizeText.Text.Trim();
         }
 
         public string GetArrayText()
         {
-            return elementsText.Text;
-        }
-
-        private void DlgArray_Load(object sender, EventArgs e)
-        {
-
+            return elementsText.Text.Trim();
         }
     }
 }

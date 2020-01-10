@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Lab7
 {
@@ -11,14 +7,13 @@ namespace Lab7
     {
         private static int sizeLowerBound = Arrays.MIN_SIZE;
         private static int sizeUpperBound = Arrays.MAX_SIZE;
-
         private static int elementLowerBound = Arrays.MIN_ELEM;
         private static int elementUpperBound = Arrays.MAX_ELEM;
 
         public static bool CheckSize(string txt, ref string error)
         {
-            string pat = @"^\d+";
-
+            string pat = @"\d+";
+            
             if (Regex.IsMatch(txt, pat))
             {
                 int num;
@@ -31,7 +26,6 @@ namespace Lab7
                     error = "В качестве размера массива введено число, неподдерживаемое по величине";
                     return false;
                 }
-
                 if (num >= sizeLowerBound && num <= sizeUpperBound) return true;
                 else
                 {
@@ -40,10 +34,9 @@ namespace Lab7
             }
             else
             {
-                error = "Размер должен быть целым числом";
-                
+                if (txt == String.Empty) error = "Размер не был введен";
+                else error = "Размер должен быть выражен целым числом";               
             }
-
 
             return false;
         }
@@ -51,7 +44,6 @@ namespace Lab7
         public static bool CheckArray(string txt, string txtSize, out string error)
         {
             string[] nums = txt.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
             error = "";
 
             if (CheckSize(txtSize, ref error))
@@ -89,18 +81,15 @@ namespace Lab7
                     }
 
                     if (okNums == size) return true;
-                    else return false;
                 }
                 else
-                {
-                    error = "Введено элементов меньше, чем указанный размер!";
-                    return false;
+                {                    
+                    if(size < nums.Length) error = "Введено меньше элементов, чем указано!";
+                    else error = "Введено больше элементов, чем указано!";
                 }
             }
-            else
-            {
-                return false;
-            }
+            
+            return false;            
         }
 
         public static bool CheckMatrix(string txt, string txtSize1, string txtSize2, out string error)
@@ -114,7 +103,6 @@ namespace Lab7
             {
                 int row = Convert.ToInt32(txtSize1);
                 int size = Convert.ToInt32(txtSize2);
-
                 string[] rows = txt.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
                 if (rows.Length == row)
@@ -123,7 +111,6 @@ namespace Lab7
                     for (int i = 0; i < row; i++)
                     {
                         string[] nums = rows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
                         if (nums.Length == size)
                         {
                             int okNums = 0;
@@ -159,117 +146,33 @@ namespace Lab7
                         }
                         else
                         {
-                            error = $"Указанный размер строки {i + 1} не соответствует количеству введенных элементов";
+                            error = $"Количество введенных элементов в строке {i + 1} не соответствует указанному количеству столбцов";
                             return false;
                         }
                     }
 
                     if (okRows == row) return true;
-                    else
-                    {
-                        error = "ALARM HOW?";
-                        return false;
-                    }
                 }
                 else
                 {
-                    error = "Указанное количество строк не соответствует введенному количеству!";
-                    return false;
+                    if(row < rows.Length) error = "Введено меньше строк, чем указано";
+                    else error = "Введено больше строк, чем указано";
                 }
-
             }
             else if (!size1Ok && !size2Ok)
             {
                 string err = "";
-
                 size2Ok = CheckSize(txtSize1, ref err);
-
                 error = err + "\n\r" + error;
             }
 
             return false;
         }
 
-        public static bool CheckJagged(string txt, string txtSize, int acttionId, out string error)
+        public static bool CheckJaggedRandom(string txt, string txtSize, out string error)
         {
             error = "";
-            if (acttionId == 0)
-            {
-                if (CheckSize(txtSize, ref error))
-                {
-                    int row = Convert.ToInt32(txtSize);
-                    string[] rows = txt.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (rows.Length == row)
-                    {
-                        int okRows = 0;
-                        for (int i = 0; i < row; i++)
-                        {
-                            string[] nums = rows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                            if (CheckSize(nums[0], ref error))
-                            {
-                                int size = Convert.ToInt32(nums[0]);
-
-                                if (nums.Length - 1 == size)
-                                {
-                                    int okNums = 0;
-
-                                    for (int j = 1; j < size + 1; j++)
-                                    {
-                                        int num;
-                                        try
-                                        {
-                                            num = Convert.ToInt32(nums[j]);
-                                        }
-                                        catch (FormatException)
-                                        {
-                                            error = $"Элемент {j + 1} в строке {i + 1} - не целое число";
-                                            return false;
-                                        }
-                                        catch (OverflowException)
-                                        {
-                                            error = $"В качестве элемента {i + 1} в строке {i + 1} введено число, неподдерживаемое по величине";
-                                            return false;
-                                        }
-
-                                        if (num >= elementLowerBound && num <= elementUpperBound) okNums++;
-                                        else
-                                        {
-                                            error = $"Элемент {i + 1} в строке {i + 1} не попадает в рабочий диапазон от {elementLowerBound} до {elementUpperBound}!";
-                                            break;
-                                        }
-                                    }
-
-                                    if (okNums == size) okRows++;
-                                    else return false;
-                                }
-                                else
-                                {
-                                    error = $"Указанный размер строки {i + 1} не соответствует количеству введенных элементов";
-                                    return false;
-                                }
-                            }
-                            else return false;
-                        }
-
-                        if (okRows == row) return true;
-                        else
-                        {
-                            error = "Ahtung! SOS KAK?";
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        error = "Указанное количество строк не соответствует введенному количеству!";
-                        return false;
-                    }
-                }
-
-                return false;
-            }
-            else if (CheckSize(txtSize, ref error))
+            if (CheckSize(txtSize, ref error))
             {
                 string[] nums = txt.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -277,19 +180,7 @@ namespace Lab7
                 if (nums.Length == size)
                 {
                     bool ok = true;
-                    for (int i = 0; i < size && ok; i++)
-                    {
-                        int num;
-                        try
-                        {
-                            num = Convert.ToInt32(nums[i]);
-                        }
-                        catch
-                        {
-                            error = $"Ошибка в вводе числа номер {i + 1}";
-                            ok = false;
-                        }
-                    }
+                    for (int i = 0; i < size && ok; i++) ok = CheckSize(nums[i], ref error);
 
                     return ok;
                 }
@@ -302,6 +193,79 @@ namespace Lab7
             }
 
             return false;
+        }
+
+        public static bool CheckJagged(string txt, string txtSize, out string error)
+        {
+            error = "";
+            if (CheckSize(txtSize, ref error))
+            {
+                int row = Convert.ToInt32(txtSize);
+                string[] rows = txt.Trim().Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (rows.Length == row)
+                {
+                    int okRows = 0;
+                    for (int i = 0; i < row; i++)
+                    {
+                        string[] nums = rows[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        if (CheckSize(nums[0], ref error))
+                        {
+                            int size = Convert.ToInt32(nums[0]);
+
+                            if (nums.Length - 1 == size)
+                            {
+                                int okNums = 0;
+
+                                for (int j = 1; j < size + 1; j++)
+                                {
+                                    int num;
+                                    try
+                                    {
+                                        num = Convert.ToInt32(nums[j]);
+                                    }
+                                    catch (FormatException)
+                                    {
+                                        error = $"Элемент {j + 1} в строке {i + 1} - не целое число";
+                                        return false;
+                                    }
+                                    catch (OverflowException)
+                                    {
+                                        error = $"В качестве элемента {i + 1} в строке {i + 1} введено число, неподдерживаемое по величине";
+                                        return false;
+                                    }
+
+                                    if (num >= elementLowerBound && num <= elementUpperBound) okNums++;
+                                    else
+                                    {
+                                        error = $"Элемент {i + 1} в строке {i + 1} не попадает в рабочий диапазон от {elementLowerBound} до {elementUpperBound}!";
+                                        break;
+                                    }
+                                }
+
+                                if (okNums == size) okRows++;
+                                else return false;
+                            }
+                            else
+                            {
+                                error = $"Указанный размер строки {i + 1} не соответствует количеству введенных элементов";
+                                return false;
+                            }
+                        }
+                        else return false;
+                    }
+
+                    if (okRows == row) return true;
+                }
+                else
+                {
+                    error = "Указанное количество строк не соответствует введенному количеству!";
+                    return false;
+                }
+            }
+
+            return false;                       
         }
       
     }

@@ -59,6 +59,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(218, 90);
             this.cancelButton.Name = "cancelButton";
@@ -131,7 +132,6 @@
             this.Controls.Add(this.sizeLable);
             this.Name = "DlgMatrix";
             this.Text = "DlgMatrix";
-            this.Load += new System.EventHandler(this.DlgMatrix_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

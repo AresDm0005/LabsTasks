@@ -38,6 +38,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(218, 95);
             this.cancelButton.Name = "cancelButton";
@@ -61,7 +62,7 @@
             this.elementsText.Location = new System.Drawing.Point(133, 58);
             this.elementsText.Multiline = true;
             this.elementsText.Name = "elementsText";
-            this.elementsText.Size = new System.Drawing.Size(255, 16);
+            this.elementsText.Size = new System.Drawing.Size(245, 16);
             this.elementsText.TabIndex = 17;
             this.elementsText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.elementsText_KeyPress);
             this.elementsText.Validating += new System.ComponentModel.CancelEventHandler(this.elementsText_Validating);
@@ -108,7 +109,6 @@
             this.Controls.Add(this.sizeLabel);
             this.Name = "DlgArray";
             this.Text = "DlgArray";
-            this.Load += new System.EventHandler(this.DlgArray_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -38,6 +38,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.Location = new System.Drawing.Point(218, 90);
             this.cancelButton.Name = "cancelButton";
@@ -108,7 +109,6 @@
             this.Controls.Add(this.sizeLable);
             this.Name = "DlgJagged";
             this.Text = "DlgJagged";
-            this.Load += new System.EventHandler(this.DlgJagged_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

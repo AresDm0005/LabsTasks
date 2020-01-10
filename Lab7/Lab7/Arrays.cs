@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab7
 {
@@ -10,21 +6,15 @@ namespace Lab7
     {
         public const int MAX_ELEM = 100;
         public const int MIN_ELEM = -100;
-
         public const int MAX_SIZE = 20;
         public const int MIN_SIZE = 1;
-
-        public const string empty = "Пустой массив";
+        public const string EMPTY = "Пустой массив";
+        public const string INIT = "Массив не инициализирован";
 
         private int type;
-
-        private string strArr;
+        private string textForm;
         private int[] arr;
-        
-        private string strMtx;
         private int[,] mtx;
-
-        private string strJag;
         private int[][] jag;
 
         public Arrays(int typeOfArray)
@@ -33,64 +23,55 @@ namespace Lab7
 
             switch (type) {
                 case 0:
-                    arr = null;
-                    strArr = "Одномерный массив не инициализирован";
+                    arr = null;                    
                     break;
                 case 1:
-                    mtx = null;
-                    strMtx = "Матрица не инициализирована";
+                    mtx = null;                    
                     break;
                 case 2:
-                    jag = null;
-                    strJag = "Рваный массив не инициализирован";
+                    jag = null;                    
                     break;
             }
+            textForm = INIT;
         }
 
         override public string ToString()
         {
             string txt = "";
-
             switch (type)
             {
                 case 0:
                     {
-                        if (arr.Length == 0) txt = empty;
-                        for (int i = 0; i < arr.Length; i++)
-                        {
-                            txt += arr[i].ToString() + " ";
-                        }
+                        if (arr.Length == 0) txt = EMPTY;
+                        for (int i = 0; i < arr.Length - 1; i++) txt += arr[i].ToString() + " ";
+                        txt += arr[arr.Length - 1].ToString();
                         break;
                     }
                 case 1:
                     {
-                        if (mtx.GetLength(0) == 0) txt = empty;
-                        for (int i = 0; i < mtx.GetLength(0); i++)
+                        int rows = mtx.GetLength(0), col = mtx.GetLength(1);
+                        if (rows == 0) txt = EMPTY;
+                        for (int i = 0; i < rows; i++)
                         {
-                            for (int j = 0; j < mtx.GetLength(1); j++)
-                            {
-                                txt += mtx[i, j].ToString() + " ";
-                            }
-                            if(i != mtx.GetLength(1) - 1) txt += "\r\n";
+                            for (int j = 0; j < col - 1; j++) txt += mtx[i, j].ToString() + " ";
+                            txt += mtx[i, col - 1]; 
+                            if(i != rows - 1) txt += "\r\n";
                         }
-
                         break;
                     }
                 case 2:
                     {
-                        if (jag.GetLength(0) == 0) txt = empty;
-                        for (int i = 0; i < jag.GetLength(0); i++)
+                        int rows = jag.GetLength(0);
+                        if (rows == 0) txt = EMPTY;
+                        for (int i = 0; i < rows; i++)
                         {
-                            for (int j = 0; j < jag[i].Length; j++)
-                            {
-                                txt += jag[i][j].ToString() + " ";
-                            }
-                            if (i != jag.GetLength(0) - 1)  txt += "\r\n";
+                            for (int j = 0; j < jag[i].Length - 1; j++) txt += jag[i][j].ToString() + " ";
+                            txt += jag[i][jag[i].Length - 1].ToString();
+                            if (i != rows - 1) txt += "\r\n";
                         }
                         break;
                     }
             }
-
             return txt;
         }
 
@@ -124,7 +105,6 @@ namespace Lab7
                     newInd++;
                 }
             }
-            if (sizeNew == sizeArr) Console.WriteLine("\nВ массиве нет четных элементов для удаления!");
 
             return newArr;
         }
@@ -136,12 +116,8 @@ namespace Lab7
 
             for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < column; j++)
-                {
-                    matr[i, j] = rand.Next(MIN_ELEM, MAX_ELEM);
-                }
+                for (int j = 0; j < column; j++) matr[i, j] = rand.Next(MIN_ELEM, MAX_ELEM);
             }
-
             return matr;
         }
 
@@ -183,15 +159,11 @@ namespace Lab7
             int[][] jag = new int[row][];
             Random rand = new Random();
 
-
             for (int i = 0; i < row; i++)
             {
                 int size = sizes[i];
                 jag[i] = new int[size];
-                for (int j = 0; j < size; j++)
-                {
-                    jag[i][j] = rand.Next(MIN_ELEM, MAX_ELEM);
-                }
+                for (int j = 0; j < size; j++) jag[i][j] = rand.Next(MIN_ELEM, MAX_ELEM);
             }
             int fl = rand.Next(1, 4);
             if (fl != 3)
@@ -230,11 +202,7 @@ namespace Lab7
 
             bool find = JaggedFirstRowWithZero(ref jag, ref rowDel);
 
-            if (!find)
-            {
-                Console.WriteLine("В массиве отсутствуют нули! Ничего не было удалено!");
-                return jag;
-            }
+            if (!find) return jag;
             else
             {
                 int[][] jag1 = new int[row - 1][];
@@ -250,12 +218,8 @@ namespace Lab7
                 for (int i = rowDel + 1; i < row; i++)
                 {
                     jag1[i - 1] = new int[jag[i].Length];
-                    for (int j = 0; j < jag[i].Length; j++)
-                    {
-                        jag1[i - 1][j] = jag[i][j];
-                    }
+                    for (int j = 0; j < jag[i].Length; j++) jag1[i - 1][j] = jag[i][j];
                 }
-
 
                 return jag1;
             }
@@ -278,7 +242,6 @@ namespace Lab7
                 }
 
                 jag = CreateRandomJagged(row, size);
-
             }
             else
             {
@@ -299,7 +262,7 @@ namespace Lab7
                 }
             }
 
-            strJag = this.ToString();
+            textForm = this.ToString();
         }
 
         public void Define(string txt, string txtSize)
@@ -308,12 +271,9 @@ namespace Lab7
             arr = new int[size];
 
             string[] nums = txt.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < size; i++)
-            {
-                arr[i] = Convert.ToInt32(nums[i]);
-            }
+            for (int i = 0; i < size; i++) arr[i] = Convert.ToInt32(nums[i]);
 
-            strArr = this.ToString();
+            textForm = this.ToString();
         }
 
         public void Define(string txt, string txtSize1, string txtSize2)
@@ -328,13 +288,9 @@ namespace Lab7
             {
                 string[] nums = str[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int j = 0; j < col; j++)
-                {
-                    mtx[i, j] = Convert.ToInt32(nums[j]);
-                }
+                for (int j = 0; j < col; j++) mtx[i, j] = Convert.ToInt32(nums[j]);
             }
-
-            strMtx = this.ToString();
+            textForm = this.ToString();
         }
 
         public void DefineRandom(string txtSize)
@@ -342,7 +298,7 @@ namespace Lab7
             int size = Convert.ToInt32(txtSize);
 
             arr = CreateRandomArray(size);
-            strArr = this.ToString();
+            textForm = this.ToString();
         }
 
         public void DefineRandom(string txtSize1, string txtSize2)
@@ -351,7 +307,7 @@ namespace Lab7
             int col = Convert.ToInt32(txtSize2);
 
             mtx = CreateRandomMatrix(row, col);
-            strMtx = this.ToString();
+            textForm = this.ToString();
         }
         #endregion
 
@@ -364,10 +320,10 @@ namespace Lab7
 
                 if (arr.Length == 0)
                 {
-                    strArr = empty;
+                    textForm = EMPTY;
                     arr = null;
                 }
-                else strArr = this.ToString();
+                else textForm = this.ToString();
             }
             else
             {
@@ -375,10 +331,10 @@ namespace Lab7
 
                 if (jag.GetLength(0) == 0)
                 {
-                    strJag = empty;
+                    textForm = EMPTY;
                     jag = null;
                 }
-                else strJag = this.ToString();
+                else textForm = this.ToString();
             }
         }
 
@@ -401,11 +357,7 @@ namespace Lab7
             for (int i = 0; i < row; i++)
             {
                 string[] nums = str[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                for (int j = 0; j < col; j++)
-                {
-                    addMatr[i, j] = Convert.ToInt32(nums[j]);
-                }
+                for (int j = 0; j < col; j++) addMatr[i, j] = Convert.ToInt32(nums[j]);
             }
 
             if (mtx == null)
@@ -413,12 +365,12 @@ namespace Lab7
                 mtx = new int[0, 0];
                 mtx = MatrixAddRows(mtx, addMatr);
 
-                strMtx = this.ToString();
+                textForm = this.ToString();
             }
             else
             {
                 mtx = MatrixAddRows(mtx, addMatr);
-                strMtx = this.ToString();
+                textForm = this.ToString();
             }
         }
 
@@ -429,31 +381,18 @@ namespace Lab7
             Random rand = new Random();
             for(int i = 0; i<row; i++)
             {
-                for(int j = 0; j<col; j++)
-                {
-                    addMtx[i, j] = rand.Next(MIN_ELEM, MAX_ELEM);
-                }
+                for(int j = 0; j<col; j++) addMtx[i, j] = rand.Next(MIN_ELEM, MAX_ELEM);
             }
 
             mtx = MatrixAddRows(mtx, addMtx);
-            strMtx = this.ToString();
+            textForm = this.ToString();
         }
         #endregion
 
         #region BackToForm
-        public string GetStrArr()
+        public string GetTxtForm()
         {
-            return this.strArr;
-        }
-
-        public string GetStrMtx()
-        {
-            return this.strMtx;
-        }
-
-        public string GetStrJag()
-        {
-            return this.strJag;
+            return this.textForm;
         }
 
         public int GetMtxColumns()
@@ -466,21 +405,11 @@ namespace Lab7
         {
             switch (type)
             {
-                case 0:
-                    {
-                        return arr.Length.ToString();
-                    }
-                case 1:
-                    {
-                        return $"{mtx.GetLength(0)}\n{mtx.GetLength(1)}";
-                    }
-                case 2:
-                    {
-                        return jag.GetLength(0).ToString();
-                    }
+                case 0: return arr.Length.ToString();
+                case 1: return $"{mtx.GetLength(0)}\n{mtx.GetLength(1)}";
+                case 2: return jag.GetLength(0).ToString();
+                default: return "";
             }
-
-            return "";
         }
         #endregion
     }

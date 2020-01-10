@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lab7
@@ -14,9 +9,9 @@ namespace Lab7
     public partial class DlgMatrix : Form
     {
         private int actionId;
-        private ErrorProvider elemError = new ErrorProvider();
-        private ErrorProvider size1Error = new ErrorProvider();
-        private ErrorProvider size2Error = new ErrorProvider();
+        private ErrorProvider elemError;
+        private ErrorProvider size1Error;
+        private ErrorProvider size2Error;
         
         public DlgMatrix(int actionId, int columnSize)
         {
@@ -46,14 +41,10 @@ namespace Lab7
                 this.Text = "Ввод размера матрицы";
 
                 sizeLable.Text = "Число строк:";                
-                size2Label.Text = "Число столбцов";
-
-                
+                size2Label.Text = "Число столбцов";                
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 60);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 60);
-
-
                 elementsText.Hide();
                 elementsLabel.Hide();
             } 
@@ -72,20 +63,21 @@ namespace Lab7
                     size2Text.Text = columnSize.ToString();
                     size2Text.ReadOnly = true;
                 }
-
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 185);
             }
+
+            size1Error = new ErrorProvider();
+            size1Error.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            size2Error = new ErrorProvider();
+            size2Error.BlinkStyle = ErrorBlinkStyle.NeverBlink;
+            elemError = new ErrorProvider();
+            elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         } 
-
-        private void DlgMatrix_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void elementsText_Validating(object sender, CancelEventArgs e)
         {
-            string errorMsg = "";
+            string errorMsg;
             string txt = elementsText.Text;
             if (!InputHandler.CheckMatrix(elementsText.Text, sizeText.Text, size2Text.Text, out errorMsg) || (actionId == 2 && txt.Trim() == "")) 
             {
@@ -98,7 +90,7 @@ namespace Lab7
 
         private void elementsText_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, "");
+            elemError.SetError(elementsText, String.Empty);
         }
 
         private void sizeText_Validating(object sender, CancelEventArgs e)
@@ -115,7 +107,7 @@ namespace Lab7
 
         private void sizeText_Validated(object sender, EventArgs e)
         {
-            size1Error.SetError(sizeText, "");
+            size1Error.SetError(sizeText, String.Empty);
         }
 
         private void size2Text_Validating(object sender, CancelEventArgs e)
@@ -132,7 +124,7 @@ namespace Lab7
 
         private void size2Text_Validated(object sender, EventArgs e)
         {
-            size2Error.SetError(size2Text, "");
+            size2Error.SetError(size2Text, String.Empty);
         }
 
         private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
@@ -161,17 +153,17 @@ namespace Lab7
 
         public string GetMatrixText()
         {
-            return elementsText.Text;
+            return elementsText.Text.Trim();
         }
 
         public string GetSize1Text()
         {
-            return sizeText.Text;
+            return sizeText.Text.Trim();
         }
 
         public string GetSize2Text()
         {
-            return size2Text.Text;
+            return size2Text.Text.Trim();
         }
     }
 }

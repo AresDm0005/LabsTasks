@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
@@ -14,15 +7,14 @@ namespace Lab7
 {
     public partial class MainForm : Form
     {
-        static string[] activities = { "Удалить четные элементы:", "Добавить К строк в конец матрицы", "Удалить первую строку с нулями" };
-        private static Arrays arr = new Arrays(0);
-        private static Arrays mtx = new Arrays(1);
-        private static Arrays jag = new Arrays(2);
+        private static string[] activities = { "Удалить четные элементы:", "Добавить К строк в конец матрицы", "Удалить первую строку с нулями" };
+        private static Arrays arr;
+        private static Arrays mtx;
+        private static Arrays jag;
 
         public MainForm()
         {
-            InitializeComponent();
-            arraysComboBox.SelectedIndex = 0;
+            InitializeComponent();            
             readLabel.Text = "Ввести массив с клавиатуры:";
             createLabel.Text = "Сформировать массив с помощью ДСЧ:";
 
@@ -31,13 +23,12 @@ namespace Lab7
 
             justLabel1.Text = "Выбранный тип массива: ";
             justLabel2.Text = "Текущий массив";
-            arrayOutTextBox.Text = "Массив не инициализирован";
 
-        }
+            arr = new Arrays(0);
+            mtx = new Arrays(1);
+            jag = new Arrays(2);
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
+            arraysComboBox.SelectedIndex = 0;
         }
 
         private void arraysComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -49,17 +40,17 @@ namespace Lab7
             {
                 case 0:
                     {
-                        arrayOutTextBox.Text = arr.GetStrArr();
+                        arrayOutTextBox.Text = arr.GetTxtForm();
                         break;
                     }
                 case 1:
                     {
-                        arrayOutTextBox.Text = mtx.GetStrMtx();
+                        arrayOutTextBox.Text = mtx.GetTxtForm();
                         break;
                     }
                 case 2:
                     {
-                        arrayOutTextBox.Text = jag.GetStrJag();
+                        arrayOutTextBox.Text = jag.GetTxtForm();
                         break;
                     }
             }            
@@ -77,10 +68,8 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             arr.Define(dlg.GetArrayText(), dlg.GetSizeText());
-
-                            arrayOutTextBox.Text = arr.GetStrArr();
+                            arrayOutTextBox.Text = arr.GetTxtForm();
                         }
-
                         break;
                     }
                 case 1:
@@ -91,11 +80,8 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             mtx.Define(dlg.GetMatrixText(), dlg.GetSize1Text(), dlg.GetSize2Text());
-
-                            arrayOutTextBox.Text = mtx.GetStrMtx();
+                            arrayOutTextBox.Text = mtx.GetTxtForm();
                         }
-
-
                         break;
                     }
                 case 2:
@@ -106,13 +92,10 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             jag.Define(dlg.GetJaggedText(), dlg.GetSizeText(), false);
-
-                            arrayOutTextBox.Text = jag.GetStrJag();
+                            arrayOutTextBox.Text = jag.GetTxtForm();
                         }
-
                         break;
                     }
-
             }
         }
 
@@ -128,10 +111,8 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             arr.DefineRandom(dlg.GetSizeText());
-
-                            arrayOutTextBox.Text = arr.GetStrArr();
+                            arrayOutTextBox.Text = arr.GetTxtForm();
                         }
-
                         break;
                     }
                 case 1:
@@ -142,10 +123,8 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             mtx.DefineRandom(dlg.GetSize1Text(), dlg.GetSize2Text());
-
-                            arrayOutTextBox.Text = mtx.GetStrMtx();
+                            arrayOutTextBox.Text = mtx.GetTxtForm();
                         }
-
                         break;
                     }
                 case 2:
@@ -156,13 +135,10 @@ namespace Lab7
                         if (dlg.DialogResult == DialogResult.OK)
                         {
                             jag.Define(dlg.GetJaggedText(), dlg.GetSizeText(), true);
-
-                            arrayOutTextBox.Text = jag.GetStrJag();
+                            arrayOutTextBox.Text = jag.GetTxtForm();
                         }
-
                         break;
                     }
-
             }
         }
 
@@ -172,61 +148,51 @@ namespace Lab7
             {
                 case 0:
                     {
-                        string change = arr.GetStrArr();
+                        string change = arr.GetTxtForm();
                         
-                        if(arrayOutTextBox.Text == Arrays.empty)
+                        if(arrayOutTextBox.Text == Arrays.EMPTY)
                         {
                             MessageBox.Show("Массив пуст!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         } 
                         else
                         {
                             arr.PerformAction();
-                            arrayOutTextBox.Text = arr.GetStrArr();
+                            arrayOutTextBox.Text = arr.GetTxtForm();
 
-                            if (arrayOutTextBox.Text == change)
-                            {
-                                MessageBox.Show("В массиве нет четных. Ничего не было удалено.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            }
-                        }
-                        
+                            if (arrayOutTextBox.Text == change) MessageBox.Show("В массиве нет четных. Ничего не было удалено.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }                        
                         break;
                     }
                 case 1:
                     {
-                        string change = mtx.GetStrMtx();
+                        string change = mtx.GetTxtForm();
                         DlgMatrix dlg = new DlgMatrix(2, mtx.GetMtxColumns());
                         dlg.ShowDialog();
 
                         if(dlg.DialogResult == DialogResult.OK)
                         {
                             mtx.PerformAction(dlg.GetMatrixText(), dlg.GetSize1Text(), dlg.GetSize2Text());
-
-                            arrayOutTextBox.Text = mtx.GetStrMtx();
+                            arrayOutTextBox.Text = mtx.GetTxtForm();
                         }
-
                         break;
                     }
                 case 2:
                     {
-                        string change = jag.GetStrJag();
+                        string change = jag.GetTxtForm();
                         
-                        if (arrayOutTextBox.Text == Arrays.empty)
+                        if (arrayOutTextBox.Text == Arrays.EMPTY)
                         {
                             MessageBox.Show("Массив пуст!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
                         {
                             jag.PerformAction();
-
-                            arrayOutTextBox.Text = jag.GetStrJag();
+                            arrayOutTextBox.Text = jag.GetTxtForm();
                             if (arrayOutTextBox.Text == change)
                             {
                                 MessageBox.Show("В массиве нет строк с 0. Ничего не было удалено.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                         }
-
-
-                        
                         break;
                     }
             }
@@ -237,13 +203,9 @@ namespace Lab7
             SaveFileDialog saveFileDialog = new SaveFileDialog();
 
             saveFileDialog.Filter = "txt files (*.txt)|*.txt";
-            saveFileDialog.FilterIndex = 1;
-
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string filePath = saveFileDialog.FileName;
-
-                var fileStream = saveFileDialog.OpenFile(); 
+                Stream fileStream = saveFileDialog.OpenFile(); 
 
                 using (StreamWriter writer = new StreamWriter(fileStream))
                 {
@@ -255,21 +217,21 @@ namespace Lab7
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(arr.GetLength());
-                                writer.WriteLine(arr.GetStrArr());
+                                writer.Write(arr.GetTxtForm());
                                 break;
                             }
                         case 1:
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(mtx.GetLength());
-                                writer.WriteLine(mtx.GetStrMtx());
+                                writer.Write(mtx.GetTxtForm());
                                 break;
                             }
                         case 2:
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(jag.GetLength());
-                                writer.WriteLine(jag.GetStrJag());
+                                writer.Write(jag.GetTxtForm());
                                 break;
                             }
                     }
@@ -287,12 +249,9 @@ namespace Lab7
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    //Get the path of specified file
                     string filePath = openFileDialog.FileName;
 
-                    //Read the contents of the file into a stream
-                    var fileStream = openFileDialog.OpenFile();
-
+                    Stream fileStream = openFileDialog.OpenFile();
                     using (StreamReader reader = new StreamReader(fileStream))
                     {
                         string fileContent = reader.ReadToEnd();
@@ -300,14 +259,6 @@ namespace Lab7
                         try
                         {
                             string[] lines = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-                            int it = 0;
-                            foreach(string line in lines)
-                            {
-                                line.Trim();
-                                if (line == "") it++;
-                            }
-
                             int type = 0;
                             if(Regex.IsMatch(lines[0], @"[012]"))
                             {
@@ -322,7 +273,7 @@ namespace Lab7
                                         if (InputHandler.CheckArray(lines[2], lines[1], out error))
                                         {
                                             arr.Define(lines[2], lines[1]);
-                                            arrayOutTextBox.Text = arr.GetStrArr();
+                                            arrayOutTextBox.Text = arr.GetTxtForm();
                                         }
                                         break;
                                     }
@@ -340,7 +291,7 @@ namespace Lab7
                                             if(InputHandler.CheckMatrix(txt, lines[1], lines[2], out error))
                                             {
                                                 mtx.Define(txt, lines[1], lines[2]);
-                                                arrayOutTextBox.Text = mtx.GetStrMtx();
+                                                arrayOutTextBox.Text = mtx.GetTxtForm();
                                             }
                                         }
                                         break;
@@ -356,10 +307,10 @@ namespace Lab7
                                                 txt += lines[i] + "\n";
                                             }
 
-                                            if(InputHandler.CheckJagged(txt, lines[1], 0, out error))
+                                            if(InputHandler.CheckJagged(txt, lines[1], out error))
                                             {
-                                                jag.Define(txt, lines[1]);
-                                                arrayOutTextBox.Text = jag.GetStrJag();
+                                                jag.Define(txt, lines[1], false);
+                                                arrayOutTextBox.Text = jag.GetTxtForm();
                                             }
                                         }
                                         break;
@@ -369,7 +320,7 @@ namespace Lab7
                         }
                         catch
                         {
-                            MessageBox.Show("При чтении файла произошла ошибка!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("При чтении файла произошла неизвестная ошибка!", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
