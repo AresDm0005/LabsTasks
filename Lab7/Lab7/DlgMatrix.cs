@@ -27,9 +27,9 @@ namespace Lab7
                 this.Size = new Size(420, 260);
                 this.Text = "Ввод матрицы";
 
-                elementsText.Size = new Size(255, 110);
-                sizeLable.Text = "Число строк:";
-                size2Label.Text = "Число столбцов";
+                elementsTextBox.Size = new Size(255, 110);
+                rowsLabel.Text = "Число строк:";
+                columnsLabel.Text = "Число столбцов";
                 elementsLabel.Text = "Элементы массива: ";
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
@@ -40,12 +40,12 @@ namespace Lab7
                 this.Size = new Size(420, 130);
                 this.Text = "Ввод размера матрицы";
 
-                sizeLable.Text = "Число строк:";                
-                size2Label.Text = "Число столбцов";                
+                rowsLabel.Text = "Число строк:";                
+                columnsLabel.Text = "Число столбцов";                
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 60);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 60);
-                elementsText.Hide();
+                elementsTextBox.Hide();
                 elementsLabel.Hide();
             } 
             else
@@ -53,15 +53,15 @@ namespace Lab7
                 this.Size = new Size(420, 260);
                 this.Text = "Ввод матрицы";
 
-                elementsText.Size = new Size(255, 110);
-                sizeLable.Text = "Число строк:";
-                size2Label.Text = "Число столбцов";
+                elementsTextBox.Size = new Size(255, 110);
+                rowsLabel.Text = "Число строк:";
+                columnsLabel.Text = "Число столбцов";
                 elementsLabel.Text = "Элементы массива: ";
 
                 if (columnSize > 0)
                 {
-                    size2Text.Text = columnSize.ToString();
-                    size2Text.ReadOnly = true;
+                    columnsTextBox.Text = columnSize.ToString();
+                    columnsTextBox.ReadOnly = true;
                 }
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 185);
@@ -75,59 +75,59 @@ namespace Lab7
             elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         } 
 
-        private void elementsText_Validating(object sender, CancelEventArgs e)
+        private void elementsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg;
-            string txt = elementsText.Text;
-            if (!InputHandler.CheckMatrix(elementsText.Text, sizeText.Text, size2Text.Text, out errorMsg) || (actionId == 2 && txt.Trim() == "")) 
+            string txt = elementsTextBox.Text;
+            if (!(InputHandler.CheckMatrix(elementsTextBox.Text, rowsTextBox.Text, columnsTextBox.Text, out errorMsg) || (actionId == 2 && txt.Trim() == ""))) 
             {
                 e.Cancel = true;
-                elementsText.Select(0, elementsText.Text.Length);
+                elementsTextBox.Select(0, elementsTextBox.Text.Length);
 
-                elemError.SetError(elementsText, errorMsg);
+                elemError.SetError(elementsTextBox, errorMsg);
             }
         }
 
-        private void elementsText_Validated(object sender, EventArgs e)
+        private void elementsTextBox_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, String.Empty);
+            elemError.SetError(elementsTextBox, String.Empty);
         }
 
-        private void sizeText_Validating(object sender, CancelEventArgs e)
+        private void rowsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckSize(sizeText.Text, ref errorMsg))
+            if (!InputHandler.CheckSize(rowsTextBox.Text, ref errorMsg))
             {
                 e.Cancel = true;
-                sizeText.Select(0, sizeText.Text.Length);
+                rowsTextBox.Select(0, rowsTextBox.Text.Length);
 
-                size1Error.SetError(sizeText, errorMsg);
+                size1Error.SetError(rowsTextBox, errorMsg);
             }
         }
 
-        private void sizeText_Validated(object sender, EventArgs e)
+        private void rowsTextBox_Validated(object sender, EventArgs e)
         {
-            size1Error.SetError(sizeText, String.Empty);
+            size1Error.SetError(rowsTextBox, String.Empty);
         }
 
-        private void size2Text_Validating(object sender, CancelEventArgs e)
+        private void columnsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckSize(size2Text.Text, ref errorMsg))
+            if (!InputHandler.CheckSize(columnsTextBox.Text, ref errorMsg))
             {
                 e.Cancel = true;
-                size2Text.Select(0, size2Text.Text.Length);
+                columnsTextBox.Select(0, columnsTextBox.Text.Length);
 
-                size2Error.SetError(size2Text, errorMsg);
+                size2Error.SetError(columnsTextBox, errorMsg);
             }
         }
 
-        private void size2Text_Validated(object sender, EventArgs e)
+        private void columnsTextBox_Validated(object sender, EventArgs e)
         {
-            size2Error.SetError(size2Text, String.Empty);
+            size2Error.SetError(columnsTextBox, String.Empty);
         }
 
-        private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
+        private void rowsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"\d") && e.KeyChar != 8)
             {
@@ -135,7 +135,7 @@ namespace Lab7
             }
         }
 
-        private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
+        private void elementsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
@@ -143,7 +143,7 @@ namespace Lab7
             }
         }
 
-        private void size2Text_KeyPress(object sender, KeyPressEventArgs e)
+        private void columnsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"\d") && e.KeyChar != 8)
             {
@@ -151,19 +151,19 @@ namespace Lab7
             }
         }
 
-        public string GetMatrixText()
+        public string GetStringOfElements()
         {
-            return elementsText.Text.Trim();
+            return elementsTextBox.Text.Trim();
         }
 
-        public string GetSize1Text()
+        public string GetRowsAsString()
         {
-            return sizeText.Text.Trim();
+            return rowsTextBox.Text.Trim();
         }
 
-        public string GetSize2Text()
+        public string GetColumnsAsString()
         {
-            return size2Text.Text.Trim();
+            return columnsTextBox.Text.Trim();
         }
     }
 }

@@ -30,10 +30,10 @@
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
-            this.elementsText = new System.Windows.Forms.TextBox();
-            this.sizeText = new System.Windows.Forms.TextBox();
+            this.elementsTextBox = new System.Windows.Forms.TextBox();
+            this.rowsTextBox = new System.Windows.Forms.TextBox();
             this.elementsLabel = new System.Windows.Forms.Label();
-            this.sizeLable = new System.Windows.Forms.Label();
+            this.rowsLable = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -59,24 +59,24 @@
             // 
             // elementsText
             // 
-            this.elementsText.Location = new System.Drawing.Point(133, 53);
-            this.elementsText.Multiline = true;
-            this.elementsText.Name = "elementsText";
-            this.elementsText.Size = new System.Drawing.Size(255, 16);
-            this.elementsText.TabIndex = 17;
-            this.elementsText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.elementsText_KeyPress);
-            this.elementsText.Validating += new System.ComponentModel.CancelEventHandler(this.elementsText_Validating);
-            this.elementsText.Validated += new System.EventHandler(this.elementsText_Validated);
+            this.elementsTextBox.Location = new System.Drawing.Point(133, 53);
+            this.elementsTextBox.Multiline = true;
+            this.elementsTextBox.Name = "elementsText";
+            this.elementsTextBox.Size = new System.Drawing.Size(255, 16);
+            this.elementsTextBox.TabIndex = 17;
+            this.elementsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.elementsTextBox_KeyPress);
+            this.elementsTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.elementsTextBox_Validating);
+            this.elementsTextBox.Validated += new System.EventHandler(this.elementsTextBox_Validated);
             // 
             // sizeText
             // 
-            this.sizeText.Location = new System.Drawing.Point(133, 15);
-            this.sizeText.Name = "sizeText";
-            this.sizeText.Size = new System.Drawing.Size(56, 20);
-            this.sizeText.TabIndex = 16;
-            this.sizeText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sizeText_KeyPress);
-            this.sizeText.Validating += new System.ComponentModel.CancelEventHandler(this.sizeText_Validating);
-            this.sizeText.Validated += new System.EventHandler(this.sizeText_Validated);
+            this.rowsTextBox.Location = new System.Drawing.Point(133, 15);
+            this.rowsTextBox.Name = "sizeText";
+            this.rowsTextBox.Size = new System.Drawing.Size(56, 20);
+            this.rowsTextBox.TabIndex = 16;
+            this.rowsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rowsTextBox_KeyPress);
+            this.rowsTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.rowsTextBox_Validating);
+            this.rowsTextBox.Validated += new System.EventHandler(this.rowsTextBox_Validated);
             // 
             // elementsLabel
             // 
@@ -89,12 +89,12 @@
             // 
             // sizeLable
             // 
-            this.sizeLable.AutoSize = true;
-            this.sizeLable.Location = new System.Drawing.Point(16, 18);
-            this.sizeLable.Name = "sizeLable";
-            this.sizeLable.Size = new System.Drawing.Size(35, 13);
-            this.sizeLable.TabIndex = 14;
-            this.sizeLable.Text = "label1";
+            this.rowsLable.AutoSize = true;
+            this.rowsLable.Location = new System.Drawing.Point(16, 18);
+            this.rowsLable.Name = "sizeLable";
+            this.rowsLable.Size = new System.Drawing.Size(35, 13);
+            this.rowsLable.TabIndex = 14;
+            this.rowsLable.Text = "label1";
             // 
             // DlgJagged
             // 
@@ -103,10 +103,10 @@
             this.ClientSize = new System.Drawing.Size(404, 131);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
-            this.Controls.Add(this.elementsText);
-            this.Controls.Add(this.sizeText);
+            this.Controls.Add(this.elementsTextBox);
+            this.Controls.Add(this.rowsTextBox);
             this.Controls.Add(this.elementsLabel);
-            this.Controls.Add(this.sizeLable);
+            this.Controls.Add(this.rowsLable);
             this.Name = "DlgJagged";
             this.Text = "DlgJagged";
             this.ResumeLayout(false);
@@ -118,9 +118,9 @@
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.TextBox elementsText;
-        private System.Windows.Forms.TextBox sizeText;
+        private System.Windows.Forms.TextBox elementsTextBox;
+        private System.Windows.Forms.TextBox rowsTextBox;
         private System.Windows.Forms.Label elementsLabel;
-        private System.Windows.Forms.Label sizeLable;
+        private System.Windows.Forms.Label rowsLable;
     }
 }

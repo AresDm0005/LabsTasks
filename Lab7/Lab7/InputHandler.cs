@@ -266,7 +266,6 @@ namespace Lab7
             }
 
             return false;                       
-        }
-      
+        }      
     }
 }

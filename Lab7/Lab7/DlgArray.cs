@@ -28,9 +28,9 @@ namespace Lab7
                 this.Size = new Size(400, 180);
                 this.Text = "Ввод одномерного массива";
 
-                elementsText.Size = new Size(230, 20);
-                elementsText.Multiline = false;
-                sizeLabel.Text = "Размер массива:";
+                elementsTextBox.Size = new Size(230, 20);
+                elementsTextBox.Multiline = false;
+                lengthLabel.Text = "Размер массива:";
                 elementsLabel.Text = "Элементы массива: ";
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 100);
@@ -41,12 +41,12 @@ namespace Lab7
                 this.Size = new Size(400, 130);
                 this.Text = "Ввод размера одномерного массива";
 
-                sizeLabel.Text = "Размер массива:";
+                lengthLabel.Text = "Размер массива:";
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 60);
                 cancelButton.Location = new Point(okButton.Location.X + 180, 60);
 
-                elementsText.Hide();
+                elementsTextBox.Hide();
                 elementsLabel.Hide();
             }
 
@@ -57,41 +57,41 @@ namespace Lab7
             elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         }
 
-        private void sizeText_Validating(object sender, CancelEventArgs e)
+        private void lengthTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckSize(sizeText.Text, ref errorMsg))
+            if (!InputHandler.CheckSize(lengthTextBox.Text, ref errorMsg))
             {
                 e.Cancel = true;
-                sizeText.Select(0, sizeText.Text.Length);
+                lengthTextBox.Select(0, lengthTextBox.Text.Length);
 
-                sizeError.SetError(sizeText, errorMsg);
+                sizeError.SetError(lengthTextBox, errorMsg);
             }
         }
 
-        private void sizeText_Validated(object sender, EventArgs e)
+        private void lengthTextBox_Validated(object sender, EventArgs e)
         {
-            sizeError.SetError(sizeText, String.Empty);
+            sizeError.SetError(lengthTextBox, String.Empty);
         }
 
-        private void elementsText_Validating(object sender, CancelEventArgs e)
+        private void elementsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg;
-            if (!InputHandler.CheckArray(elementsText.Text, sizeText.Text, out errorMsg))
+            if (!InputHandler.CheckArray(elementsTextBox.Text, lengthTextBox.Text, out errorMsg))
             {
                 e.Cancel = true;
-                elementsText.Select(0, elementsText.Text.Length);
+                elementsTextBox.Select(0, elementsTextBox.Text.Length);
 
-                elemError.SetError(elementsText, errorMsg);
+                elemError.SetError(elementsTextBox, errorMsg);
             }
         }
 
-        private void elementsText_Validated(object sender, EventArgs e)
+        private void elementsTextBox_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, String.Empty);
+            elemError.SetError(elementsTextBox, String.Empty);
         }
 
-        private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
+        private void lengthTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"\d") && e.KeyChar != 8)
             {
@@ -99,7 +99,7 @@ namespace Lab7
             }
         }
 
-        private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
+        private void elementsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
@@ -107,14 +107,14 @@ namespace Lab7
             }
         }
 
-        public string GetSizeText()
+        public string GetLengthAsString()
         {
-            return sizeText.Text.Trim();
+            return lengthTextBox.Text.Trim();
         }
 
-        public string GetArrayText()
+        public string GetStringOfElements()
         {
-            return elementsText.Text.Trim();
+            return elementsTextBox.Text.Trim();
         }
     }
 }

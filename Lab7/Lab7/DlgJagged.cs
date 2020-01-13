@@ -26,8 +26,8 @@ namespace Lab7
                 this.Size = new Size(400, 260);
                 this.Text = "Ввод рваного массива";
 
-                elementsText.Size = new Size(190, 110);
-                sizeLable.Text = "Число строк:";
+                elementsTextBox.Size = new Size(190, 110);
+                rowsLable.Text = "Число строк:";
                 elementsLabel.Text = "Размер строки и\n\rЭлементы массива: ";
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 185);
@@ -38,9 +38,9 @@ namespace Lab7
                 this.Size = new Size(400, 180);
                 this.Text = "Ввод размеров рваного массива";
 
-                elementsText.Size = new Size(235, 20);
-                elementsText.Multiline = false;
-                sizeLable.Text = "Число строк:";
+                elementsTextBox.Size = new Size(235, 20);
+                elementsTextBox.Multiline = false;
+                rowsLable.Text = "Число строк:";
                 elementsLabel.Text = "Размеры строк: ";
 
                 okButton.Location = new Point((this.Size.Width - 330) / 2, 100);
@@ -53,44 +53,44 @@ namespace Lab7
             elemError.BlinkStyle = ErrorBlinkStyle.NeverBlink;
         }
 
-        private void sizeText_Validating(object sender, CancelEventArgs e)
+        private void rowsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg = "";
-            if (!InputHandler.CheckSize(sizeText.Text, ref errorMsg))
+            if (!InputHandler.CheckSize(rowsTextBox.Text, ref errorMsg))
             {
                 e.Cancel = true;
-                sizeText.Select(0, sizeText.Text.Length);
+                rowsTextBox.Select(0, rowsTextBox.Text.Length);
 
-                sizeError.SetError(sizeText, errorMsg);
+                sizeError.SetError(rowsTextBox, errorMsg);
             }
         }
 
-        private void sizeText_Validated(object sender, EventArgs e)
+        private void rowsTextBox_Validated(object sender, EventArgs e)
         {
-            sizeError.SetError(sizeText, String.Empty);
+            sizeError.SetError(rowsTextBox, String.Empty);
         }
 
-        private void elementsText_Validating(object sender, CancelEventArgs e)
+        private void elementsTextBox_Validating(object sender, CancelEventArgs e)
         {
             string errorMsg;
-            bool condition = (actionId == 0) ? !InputHandler.CheckJagged(elementsText.Text, sizeText.Text, out errorMsg) :
-                !InputHandler.CheckJaggedRandom(elementsText.Text, sizeText.Text, out errorMsg);
+            bool condition = (actionId == 0) ? !InputHandler.CheckJagged(elementsTextBox.Text, rowsTextBox.Text, out errorMsg) :
+                !InputHandler.CheckJaggedRandom(elementsTextBox.Text, rowsTextBox.Text, out errorMsg);
 
             if (condition)
             {
                 e.Cancel = true;
-                elementsText.Select(0, elementsText.Text.Length);
+                elementsTextBox.Select(0, elementsTextBox.Text.Length);
 
-                elemError.SetError(elementsText, errorMsg);
+                elemError.SetError(elementsTextBox, errorMsg);
             }
         }
 
-        private void elementsText_Validated(object sender, EventArgs e)
+        private void elementsTextBox_Validated(object sender, EventArgs e)
         {
-            elemError.SetError(elementsText, String.Empty);
+            elemError.SetError(elementsTextBox, String.Empty);
         }
 
-        private void sizeText_KeyPress(object sender, KeyPressEventArgs e)
+        private void rowsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"\d") && e.KeyChar != 8)
             {
@@ -98,7 +98,7 @@ namespace Lab7
             }
         }
 
-        private void elementsText_KeyPress(object sender, KeyPressEventArgs e)
+        private void elementsTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!Regex.IsMatch(e.KeyChar.ToString(), @"[\d\s\-]") && e.KeyChar != 8)
             {
@@ -106,14 +106,14 @@ namespace Lab7
             }
         }
 
-        public string GetSizeText()
+        public string GetRowsAsString()
         {
-            return sizeText.Text.Trim();
+            return rowsTextBox.Text.Trim();
         }
 
-        public string GetJaggedText()
+        public string GetStringOfElements()
         {
-            return elementsText.Text.Trim();
+            return elementsTextBox.Text.Trim();
         }
     }
 }

@@ -40,17 +40,17 @@ namespace Lab7
             {
                 case 0:
                     {
-                        arrayOutTextBox.Text = arr.GetTxtForm();
+                        arrayOutTextBox.Text = arr.GetStringFormArray();
                         break;
                     }
                 case 1:
                     {
-                        arrayOutTextBox.Text = mtx.GetTxtForm();
+                        arrayOutTextBox.Text = mtx.GetStringFormArray();
                         break;
                     }
                 case 2:
                     {
-                        arrayOutTextBox.Text = jag.GetTxtForm();
+                        arrayOutTextBox.Text = jag.GetStringFormArray();
                         break;
                     }
             }            
@@ -67,8 +67,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            arr.Define(dlg.GetArrayText(), dlg.GetSizeText());
-                            arrayOutTextBox.Text = arr.GetTxtForm();
+                            arr.Define(dlg.GetStringOfElements(), dlg.GetLengthAsString());
+                            arrayOutTextBox.Text = arr.GetStringFormArray();
                         }
                         break;
                     }
@@ -79,8 +79,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            mtx.Define(dlg.GetMatrixText(), dlg.GetSize1Text(), dlg.GetSize2Text());
-                            arrayOutTextBox.Text = mtx.GetTxtForm();
+                            mtx.Define(dlg.GetStringOfElements(), dlg.GetRowsAsString(), dlg.GetColumnsAsString());
+                            arrayOutTextBox.Text = mtx.GetStringFormArray();
                         }
                         break;
                     }
@@ -91,8 +91,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            jag.Define(dlg.GetJaggedText(), dlg.GetSizeText(), false);
-                            arrayOutTextBox.Text = jag.GetTxtForm();
+                            jag.Define(dlg.GetStringOfElements(), dlg.GetRowsAsString(), false);
+                            arrayOutTextBox.Text = jag.GetStringFormArray();
                         }
                         break;
                     }
@@ -110,8 +110,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            arr.DefineRandom(dlg.GetSizeText());
-                            arrayOutTextBox.Text = arr.GetTxtForm();
+                            arr.DefineRandom(dlg.GetLengthAsString());
+                            arrayOutTextBox.Text = arr.GetStringFormArray();
                         }
                         break;
                     }
@@ -122,8 +122,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            mtx.DefineRandom(dlg.GetSize1Text(), dlg.GetSize2Text());
-                            arrayOutTextBox.Text = mtx.GetTxtForm();
+                            mtx.DefineRandom(dlg.GetRowsAsString(), dlg.GetColumnsAsString());
+                            arrayOutTextBox.Text = mtx.GetStringFormArray();
                         }
                         break;
                     }
@@ -134,8 +134,8 @@ namespace Lab7
 
                         if (dlg.DialogResult == DialogResult.OK)
                         {
-                            jag.Define(dlg.GetJaggedText(), dlg.GetSizeText(), true);
-                            arrayOutTextBox.Text = jag.GetTxtForm();
+                            jag.Define(dlg.GetStringOfElements(), dlg.GetRowsAsString(), true);
+                            arrayOutTextBox.Text = jag.GetStringFormArray();
                         }
                         break;
                     }
@@ -148,7 +148,7 @@ namespace Lab7
             {
                 case 0:
                     {
-                        string change = arr.GetTxtForm();
+                        string change = arr.GetStringFormArray();
                         
                         if(arrayOutTextBox.Text == Arrays.EMPTY)
                         {
@@ -161,7 +161,7 @@ namespace Lab7
                         else
                         {
                             arr.PerformAction();
-                            arrayOutTextBox.Text = arr.GetTxtForm();
+                            arrayOutTextBox.Text = arr.GetStringFormArray();
 
                             if (arrayOutTextBox.Text == change) MessageBox.Show("В массиве нет четных. Ничего не было удалено.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }                        
@@ -169,20 +169,20 @@ namespace Lab7
                     }
                 case 1:
                     {
-                        string change = mtx.GetTxtForm();
+                        string change = mtx.GetStringFormArray();
                         DlgMatrix dlg = new DlgMatrix(2, mtx.GetMtxColumns());
                         dlg.ShowDialog();
 
                         if(dlg.DialogResult == DialogResult.OK)
                         {
-                            mtx.PerformAction(dlg.GetMatrixText(), dlg.GetSize1Text(), dlg.GetSize2Text());
-                            arrayOutTextBox.Text = mtx.GetTxtForm();
+                            mtx.PerformAction(dlg.GetStringOfElements(), dlg.GetRowsAsString(), dlg.GetColumnsAsString());
+                            arrayOutTextBox.Text = mtx.GetStringFormArray();
                         }
                         break;
                     }
                 case 2:
                     {
-                        string change = jag.GetTxtForm();
+                        string change = jag.GetStringFormArray();
                         
                         if (arrayOutTextBox.Text == Arrays.EMPTY)
                         {
@@ -195,7 +195,7 @@ namespace Lab7
                         else
                         {
                             jag.PerformAction();
-                            arrayOutTextBox.Text = jag.GetTxtForm();
+                            arrayOutTextBox.Text = jag.GetStringFormArray();
                             if (arrayOutTextBox.Text == change)
                             {
                                 MessageBox.Show("В массиве нет строк с 0. Ничего не было удалено.", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -225,21 +225,21 @@ namespace Lab7
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(arr.GetLength());
-                                writer.Write(arr.GetTxtForm());
+                                writer.Write(arr.GetStringFormArray());
                                 break;
                             }
                         case 1:
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(mtx.GetLength());
-                                writer.Write(mtx.GetTxtForm());
+                                writer.Write(mtx.GetStringFormArray());
                                 break;
                             }
                         case 2:
                             {
                                 writer.WriteLine(type.ToString());
                                 writer.WriteLine(jag.GetLength());
-                                writer.Write(jag.GetTxtForm());
+                                writer.Write(jag.GetStringFormArray());
                                 break;
                             }
                     }
@@ -281,7 +281,7 @@ namespace Lab7
                                         if (InputHandler.CheckArray(lines[2], lines[1], out error))
                                         {
                                             arr.Define(lines[2], lines[1]);
-                                            arrayOutTextBox.Text = arr.GetTxtForm();
+                                            arrayOutTextBox.Text = arr.GetStringFormArray();
                                         }
                                         break;
                                     }
@@ -299,7 +299,7 @@ namespace Lab7
                                             if(InputHandler.CheckMatrix(txt, lines[1], lines[2], out error))
                                             {
                                                 mtx.Define(txt, lines[1], lines[2]);
-                                                arrayOutTextBox.Text = mtx.GetTxtForm();
+                                                arrayOutTextBox.Text = mtx.GetStringFormArray();
                                             }
                                         }
                                         break;
@@ -318,7 +318,7 @@ namespace Lab7
                                             if(InputHandler.CheckJagged(txt, lines[1], out error))
                                             {
                                                 jag.Define(txt, lines[1], false);
-                                                arrayOutTextBox.Text = jag.GetTxtForm();
+                                                arrayOutTextBox.Text = jag.GetStringFormArray();
                                             }
                                         }
                                         break;

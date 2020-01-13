@@ -12,7 +12,7 @@ namespace Lab7
         public const string INIT = "Массив не инициализирован";
 
         private int type;
-        private string textForm;
+        private string stringFormArray;
         private int[] arr;
         private int[,] mtx;
         private int[][] jag;
@@ -32,7 +32,7 @@ namespace Lab7
                     jag = null;                    
                     break;
             }
-            textForm = INIT;
+            stringFormArray = INIT;
         }
 
         override public string ToString()
@@ -124,7 +124,7 @@ namespace Lab7
         private static int[,] MatrixAddRows(int[,] matr, int[,] addMatr)
         {
             int[,] newMatr;
-            if (matr.GetLength(0) == 0) newMatr = addMatr;
+            if (matr == null) newMatr = addMatr;
             else
             {
                 int row = matr.GetLength(0);
@@ -262,7 +262,7 @@ namespace Lab7
                 }
             }
 
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
 
         public void Define(string txt, string txtSize)
@@ -273,7 +273,7 @@ namespace Lab7
             string[] nums = txt.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < size; i++) arr[i] = Convert.ToInt32(nums[i]);
 
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
 
         public void Define(string txt, string txtSize1, string txtSize2)
@@ -290,7 +290,7 @@ namespace Lab7
 
                 for (int j = 0; j < col; j++) mtx[i, j] = Convert.ToInt32(nums[j]);
             }
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
 
         public void DefineRandom(string txtSize)
@@ -298,7 +298,7 @@ namespace Lab7
             int size = Convert.ToInt32(txtSize);
 
             arr = CreateRandomArray(size);
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
 
         public void DefineRandom(string txtSize1, string txtSize2)
@@ -307,7 +307,7 @@ namespace Lab7
             int col = Convert.ToInt32(txtSize2);
 
             mtx = CreateRandomMatrix(row, col);
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
         #endregion
 
@@ -320,10 +320,10 @@ namespace Lab7
 
                 if (arr.Length == 0)
                 {
-                    textForm = EMPTY;
+                    stringFormArray = EMPTY;
                     arr = null;
                 }
-                else textForm = this.ToString();
+                else stringFormArray = this.ToString();
             }
             else
             {
@@ -331,10 +331,10 @@ namespace Lab7
 
                 if (jag.GetLength(0) == 0)
                 {
-                    textForm = EMPTY;
+                    stringFormArray = EMPTY;
                     jag = null;
                 }
-                else textForm = this.ToString();
+                else stringFormArray = this.ToString();
             }
         }
 
@@ -360,18 +360,8 @@ namespace Lab7
                 for (int j = 0; j < col; j++) addMatr[i, j] = Convert.ToInt32(nums[j]);
             }
 
-            if (mtx == null)
-            {
-                mtx = new int[0, 0];
-                mtx = MatrixAddRows(mtx, addMatr);
-
-                textForm = this.ToString();
-            }
-            else
-            {
-                mtx = MatrixAddRows(mtx, addMatr);
-                textForm = this.ToString();
-            }
+            mtx = MatrixAddRows(mtx, addMatr);
+            stringFormArray = this.ToString();
         }
 
         private void PerformActionMtxRandom(int row, int col)
@@ -385,14 +375,14 @@ namespace Lab7
             }
 
             mtx = MatrixAddRows(mtx, addMtx);
-            textForm = this.ToString();
+            stringFormArray = this.ToString();
         }
         #endregion
 
         #region BackToForm
-        public string GetTxtForm()
+        public string GetStringFormArray()
         {
-            return this.textForm;
+            return this.stringFormArray;
         }
 
         public int GetMtxColumns()
