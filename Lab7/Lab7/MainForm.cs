@@ -275,11 +275,21 @@ namespace Lab7
                         try
                         {
                             string[] lines = fileContent.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                            string tmp = "";
+                            foreach (string line in lines)
+                            {
+                                if (line.Trim().Length != 0) tmp += line.Trim() + "\n";                                
+                            }
+                            lines = tmp.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
                             int type = 0;
                             if(Regex.IsMatch(lines[0], @"[012]"))
                             {
                                 type = Convert.ToInt32(lines[0]);
                             }
+
+                            
 
                             arraysComboBox.SelectedIndex = type;
                             switch (type)
@@ -349,7 +359,7 @@ namespace Lab7
             string message = "Перед загрузкой массива из файла убедитесь, что загрузочный файл имеет расширение txt.\nТакже проверьте что он соответсутвует форме:\n";
             message += "<Номер типа (0 - одномерный, 1 - двумерный, 2 - рваный)>\n<Размеры массива (для одномерного - длина, матрицы - на отдельных строках число строк и столбцов,";
             message += "рваного - число строк)>\nДалее сам массив, в такой же форме как в приложении\n\nПример одномерного:\n0\n4\n1 -3 95 13\n\nМатрицы:\n1\n2\n3\n1 54 -7\n4 16 64\n\n";
-            message += "Рваного:\n2\n4\n5 3 -8 25 -7 44\n1 0\n4 3 5 2 -1\n3 3 1 2\n\nУбедитесь что все строки заканчиваются цифрой (то есть не пробелом) и что в файле отсутсвуют пустые строки";
+            message += "Рваного:\n2\n4\n5 3 -8 25 -7 44\n1 0\n4 3 5 2 -1\n3 3 1 2\n\nВ случае ошибки проверьте, что все строки заканчиваются цифрой (то есть не пробелом) и что в файле отсутсвуют пустые строки";
             MessageBox.Show(message, "Справка", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
