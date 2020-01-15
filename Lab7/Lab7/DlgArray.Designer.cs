@@ -56,22 +56,23 @@
             this.okButton.TabIndex = 18;
             this.okButton.Text = "button1";
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // elementsText
+            // elementsTextBox
             // 
             this.elementsTextBox.Location = new System.Drawing.Point(133, 58);
             this.elementsTextBox.Multiline = true;
-            this.elementsTextBox.Name = "elementsText";
+            this.elementsTextBox.Name = "elementsTextBox";
             this.elementsTextBox.Size = new System.Drawing.Size(245, 16);
             this.elementsTextBox.TabIndex = 17;
             this.elementsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.elementsTextBox_KeyPress);
             this.elementsTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.elementsTextBox_Validating);
             this.elementsTextBox.Validated += new System.EventHandler(this.elementsTextBox_Validated);
             // 
-            // sizeText
+            // lengthTextBox
             // 
             this.lengthTextBox.Location = new System.Drawing.Point(133, 20);
-            this.lengthTextBox.Name = "sizeText";
+            this.lengthTextBox.Name = "lengthTextBox";
             this.lengthTextBox.Size = new System.Drawing.Size(56, 20);
             this.lengthTextBox.TabIndex = 16;
             this.lengthTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lengthTextBox_KeyPress);
@@ -87,11 +88,11 @@
             this.elementsLabel.TabIndex = 15;
             this.elementsLabel.Text = "label1";
             // 
-            // sizeLabel
+            // lengthLabel
             // 
             this.lengthLabel.AutoSize = true;
             this.lengthLabel.Location = new System.Drawing.Point(16, 23);
-            this.lengthLabel.Name = "sizeLabel";
+            this.lengthLabel.Name = "lengthLabel";
             this.lengthLabel.Size = new System.Drawing.Size(35, 13);
             this.lengthLabel.TabIndex = 14;
             this.lengthLabel.Text = "label1";
@@ -100,13 +101,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(404, 141);
+            this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.elementsTextBox);
             this.Controls.Add(this.lengthTextBox);
             this.Controls.Add(this.elementsLabel);
             this.Controls.Add(this.lengthLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "DlgArray";
             this.Text = "DlgArray";
             this.ResumeLayout(false);

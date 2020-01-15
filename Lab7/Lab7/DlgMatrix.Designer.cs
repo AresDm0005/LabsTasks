@@ -38,21 +38,21 @@
             this.rowsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // size2Text
+            // columnsTextBox
             // 
             this.columnsTextBox.Location = new System.Drawing.Point(332, 15);
-            this.columnsTextBox.Name = "size2Text";
+            this.columnsTextBox.Name = "columnsTextBox";
             this.columnsTextBox.Size = new System.Drawing.Size(56, 20);
             this.columnsTextBox.TabIndex = 23;
             this.columnsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.columnsTextBox_KeyPress);
             this.columnsTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.columnsTextBox_Validating);
             this.columnsTextBox.Validated += new System.EventHandler(this.columnsTextBox_Validated);
             // 
-            // size2Label
+            // columnsLabel
             // 
             this.columnsLabel.AutoSize = true;
             this.columnsLabel.Location = new System.Drawing.Point(215, 18);
-            this.columnsLabel.Name = "size2Label";
+            this.columnsLabel.Name = "columnsLabel";
             this.columnsLabel.Size = new System.Drawing.Size(35, 13);
             this.columnsLabel.TabIndex = 22;
             this.columnsLabel.Text = "label1";
@@ -77,22 +77,23 @@
             this.okButton.TabIndex = 20;
             this.okButton.Text = "button1";
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.okButton_Click);
             // 
-            // elementsText
+            // elementsTextBox
             // 
             this.elementsTextBox.Location = new System.Drawing.Point(133, 53);
             this.elementsTextBox.Multiline = true;
-            this.elementsTextBox.Name = "elementsText";
+            this.elementsTextBox.Name = "elementsTextBox";
             this.elementsTextBox.Size = new System.Drawing.Size(255, 16);
             this.elementsTextBox.TabIndex = 19;
             this.elementsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.elementsTextBox_KeyPress);
             this.elementsTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.elementsTextBox_Validating);
             this.elementsTextBox.Validated += new System.EventHandler(this.elementsTextBox_Validated);
             // 
-            // sizeText
+            // rowsTextBox
             // 
             this.rowsTextBox.Location = new System.Drawing.Point(133, 15);
-            this.rowsTextBox.Name = "sizeText";
+            this.rowsTextBox.Name = "rowsTextBox";
             this.rowsTextBox.Size = new System.Drawing.Size(56, 20);
             this.rowsTextBox.TabIndex = 18;
             this.rowsTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rowsTextBox_KeyPress);
@@ -108,11 +109,11 @@
             this.elementsLabel.TabIndex = 17;
             this.elementsLabel.Text = "label1";
             // 
-            // sizeLable
+            // rowsLabel
             // 
             this.rowsLabel.AutoSize = true;
             this.rowsLabel.Location = new System.Drawing.Point(16, 18);
-            this.rowsLabel.Name = "sizeLable";
+            this.rowsLabel.Name = "rowsLabel";
             this.rowsLabel.Size = new System.Drawing.Size(35, 13);
             this.rowsLabel.TabIndex = 16;
             this.rowsLabel.Text = "label1";
@@ -121,7 +122,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(404, 131);
+            this.ControlBox = false;
             this.Controls.Add(this.columnsTextBox);
             this.Controls.Add(this.columnsLabel);
             this.Controls.Add(this.cancelButton);
@@ -130,6 +134,8 @@
             this.Controls.Add(this.rowsTextBox);
             this.Controls.Add(this.elementsLabel);
             this.Controls.Add(this.rowsLabel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Name = "DlgMatrix";
             this.Text = "DlgMatrix";
             this.ResumeLayout(false);
@@ -147,6 +153,5 @@
         private System.Windows.Forms.Label rowsLabel;
         private System.Windows.Forms.Label columnsLabel;
         private System.Windows.Forms.Label elementsLabel;
-        
     }
 }

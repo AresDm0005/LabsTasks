@@ -116,5 +116,11 @@ namespace Lab7
         {
             return elementsTextBox.Text.Trim();
         }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            if (this.ValidateChildren(ValidationConstraints.Visible)) this.Close();
+            else this.DialogResult = 0;
+        }
     }
 }

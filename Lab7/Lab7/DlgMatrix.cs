@@ -19,7 +19,7 @@ namespace Lab7
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.actionId = actionId;
 
-            okButton.Text = "Ок";
+            okButton.Text = "Ок";            
             cancelButton.Text = "Отмена";
 
             if (actionId == 0)
@@ -79,13 +79,13 @@ namespace Lab7
         {
             string errorMsg;
             string txt = elementsTextBox.Text;
-            if (!(InputHandler.CheckMatrix(elementsTextBox.Text, rowsTextBox.Text, columnsTextBox.Text, out errorMsg) || (actionId == 2 && txt.Trim() == ""))) 
+            if (!(InputHandler.CheckMatrix(elementsTextBox.Text, rowsTextBox.Text, columnsTextBox.Text, out errorMsg) ^ (actionId == 2 && txt.Trim() == ""))) 
             {
                 e.Cancel = true;
                 elementsTextBox.Select(0, elementsTextBox.Text.Length);
 
-                elemError.SetError(elementsTextBox, errorMsg);
-            }
+                elemError.SetError(elementsTextBox, errorMsg);                
+            }           
         }
 
         private void elementsTextBox_Validated(object sender, EventArgs e)
@@ -165,5 +165,12 @@ namespace Lab7
         {
             return columnsTextBox.Text.Trim();
         }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            if (this.ValidateChildren(ValidationConstraints.Visible)) this.Close();
+            else this.DialogResult = 0;
+        }
+
     }
 }

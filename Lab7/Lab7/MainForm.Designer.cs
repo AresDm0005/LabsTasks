@@ -42,6 +42,7 @@
             this.createLabel = new System.Windows.Forms.Label();
             this.readLabel = new System.Windows.Forms.Label();
             this.arraysComboBox = new System.Windows.Forms.ComboBox();
+            this.fileHelpOption = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +60,8 @@
             // 
             this.filesMenuStrip.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveFileOption,
-            this.loadFileOption});
+            this.loadFileOption,
+            this.fileHelpOption});
             this.filesMenuStrip.Name = "filesMenuStrip";
             this.filesMenuStrip.Size = new System.Drawing.Size(57, 20);
             this.filesMenuStrip.Text = "Файлы";
@@ -67,14 +69,14 @@
             // saveFileOption
             // 
             this.saveFileOption.Name = "saveFileOption";
-            this.saveFileOption.Size = new System.Drawing.Size(181, 22);
+            this.saveFileOption.Size = new System.Drawing.Size(241, 22);
             this.saveFileOption.Text = "Сохранить в файл";
             this.saveFileOption.Click += new System.EventHandler(this.saveFileOption_Click);
             // 
             // loadFileOption
             // 
             this.loadFileOption.Name = "loadFileOption";
-            this.loadFileOption.Size = new System.Drawing.Size(181, 22);
+            this.loadFileOption.Size = new System.Drawing.Size(241, 22);
             this.loadFileOption.Text = "Загрузить из файла";
             this.loadFileOption.Click += new System.EventHandler(this.loadFileOption_Click);
             // 
@@ -179,6 +181,13 @@
             this.arraysComboBox.TabIndex = 10;
             this.arraysComboBox.SelectedIndexChanged += new System.EventHandler(this.arraysComboBox_SelectedIndexChanged);
             // 
+            // fileHelpOption
+            // 
+            this.fileHelpOption.Name = "fileHelpOption";
+            this.fileHelpOption.Size = new System.Drawing.Size(241, 22);
+            this.fileHelpOption.Text = "Справка по работе с файлами";
+            this.fileHelpOption.Click += new System.EventHandler(this.fileHelpOption_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -224,6 +233,7 @@
         private System.Windows.Forms.Label createLabel;
         private System.Windows.Forms.Label readLabel;
         private System.Windows.Forms.ComboBox arraysComboBox;
+        private System.Windows.Forms.ToolStripMenuItem fileHelpOption;
     }
 }
 
