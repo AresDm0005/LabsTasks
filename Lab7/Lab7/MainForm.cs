@@ -21,8 +21,8 @@ namespace Lab7
             readButton.Text = "Ввести!";
             createButton.Text = "Сформировать!";
 
-            justLabel1.Text = "Выбранный тип массива: ";
-            justLabel2.Text = "Текущий массив";
+            choiseLabel.Text = "Выбранный тип массива: ";
+            outLabel.Text = "Текущий массив";
 
             arr = new Arrays(0);
             mtx = new Arrays(1);

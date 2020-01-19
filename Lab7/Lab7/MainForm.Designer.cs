@@ -32,9 +32,10 @@
             this.filesMenuStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileOption = new System.Windows.Forms.ToolStripMenuItem();
             this.loadFileOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.justLabel1 = new System.Windows.Forms.Label();
+            this.fileHelpOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.choiseLabel = new System.Windows.Forms.Label();
             this.arrayOutTextBox = new System.Windows.Forms.TextBox();
-            this.justLabel2 = new System.Windows.Forms.Label();
+            this.outLabel = new System.Windows.Forms.Label();
             this.activityButton = new System.Windows.Forms.Button();
             this.createButton = new System.Windows.Forms.Button();
             this.readButton = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@
             this.createLabel = new System.Windows.Forms.Label();
             this.readLabel = new System.Windows.Forms.Label();
             this.arraysComboBox = new System.Windows.Forms.ComboBox();
-            this.fileHelpOption = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,14 +80,21 @@
             this.loadFileOption.Text = "Загрузить из файла";
             this.loadFileOption.Click += new System.EventHandler(this.loadFileOption_Click);
             // 
-            // justLabel1
+            // fileHelpOption
             // 
-            this.justLabel1.AutoSize = true;
-            this.justLabel1.Location = new System.Drawing.Point(571, 42);
-            this.justLabel1.Name = "justLabel1";
-            this.justLabel1.Size = new System.Drawing.Size(35, 13);
-            this.justLabel1.TabIndex = 19;
-            this.justLabel1.Text = "label1";
+            this.fileHelpOption.Name = "fileHelpOption";
+            this.fileHelpOption.Size = new System.Drawing.Size(241, 22);
+            this.fileHelpOption.Text = "Справка по работе с файлами";
+            this.fileHelpOption.Click += new System.EventHandler(this.fileHelpOption_Click);
+            // 
+            // choiseLabel
+            // 
+            this.choiseLabel.AutoSize = true;
+            this.choiseLabel.Location = new System.Drawing.Point(571, 42);
+            this.choiseLabel.Name = "choiseLabel";
+            this.choiseLabel.Size = new System.Drawing.Size(35, 13);
+            this.choiseLabel.TabIndex = 19;
+            this.choiseLabel.Text = "label1";
             // 
             // arrayOutTextBox
             // 
@@ -99,14 +106,14 @@
             this.arrayOutTextBox.TabIndex = 18;
             this.arrayOutTextBox.Text = "label1";
             // 
-            // justLabel2
+            // outLabel
             // 
-            this.justLabel2.AutoSize = true;
-            this.justLabel2.Location = new System.Drawing.Point(386, 122);
-            this.justLabel2.Name = "justLabel2";
-            this.justLabel2.Size = new System.Drawing.Size(35, 13);
-            this.justLabel2.TabIndex = 17;
-            this.justLabel2.Text = "label1";
+            this.outLabel.AutoSize = true;
+            this.outLabel.Location = new System.Drawing.Point(386, 122);
+            this.outLabel.Name = "outLabel";
+            this.outLabel.Size = new System.Drawing.Size(35, 13);
+            this.outLabel.TabIndex = 17;
+            this.outLabel.Text = "label1";
             // 
             // activityButton
             // 
@@ -181,13 +188,6 @@
             this.arraysComboBox.TabIndex = 10;
             this.arraysComboBox.SelectedIndexChanged += new System.EventHandler(this.arraysComboBox_SelectedIndexChanged);
             // 
-            // fileHelpOption
-            // 
-            this.fileHelpOption.Name = "fileHelpOption";
-            this.fileHelpOption.Size = new System.Drawing.Size(241, 22);
-            this.fileHelpOption.Text = "Справка по работе с файлами";
-            this.fileHelpOption.Click += new System.EventHandler(this.fileHelpOption_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -195,9 +195,9 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(844, 301);
-            this.Controls.Add(this.justLabel1);
+            this.Controls.Add(this.choiseLabel);
             this.Controls.Add(this.arrayOutTextBox);
-            this.Controls.Add(this.justLabel2);
+            this.Controls.Add(this.outLabel);
             this.Controls.Add(this.activityButton);
             this.Controls.Add(this.createButton);
             this.Controls.Add(this.readButton);
@@ -223,9 +223,9 @@
         private System.Windows.Forms.ToolStripMenuItem filesMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem saveFileOption;
         private System.Windows.Forms.ToolStripMenuItem loadFileOption;
-        private System.Windows.Forms.Label justLabel1;
+        private System.Windows.Forms.Label choiseLabel;
         private System.Windows.Forms.TextBox arrayOutTextBox;
-        private System.Windows.Forms.Label justLabel2;
+        private System.Windows.Forms.Label outLabel;
         private System.Windows.Forms.Button activityButton;
         private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.Button readButton;
