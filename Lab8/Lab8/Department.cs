@@ -3,7 +3,7 @@
 namespace Lab8
 {
     [Serializable]
-    class Department
+    public class Department
     {
         public const double BASE_INCOME_VALUE = double.MinValue;  // Начальное значение дохода
         public const double INCOME_TO_REMOVE = -0.001;            // Идентификатор удаленного дохода

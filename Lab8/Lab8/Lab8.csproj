@@ -46,7 +46,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDepartmentForm.Designer.cs">
+      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CorrectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CorrectionForm.Designer.cs">
+      <DependentUpon>CorrectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CorrectionPositionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CorrectionPositionForm.Designer.cs">
+      <DependentUpon>CorrectionPositionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeletionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeletionForm.Designer.cs">
+      <DependentUpon>DeletionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Department.cs" />
+    <Compile Include="DownwardsYearsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DownwardsYearsForm.Designer.cs">
+      <DependentUpon>DownwardsYearsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Firm.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -54,10 +84,40 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MostProfitableYearsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MostProfitableYearsForm.Designer.cs">
+      <DependentUpon>MostProfitableYearsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowDataForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowDataForm.Designer.cs">
+      <DependentUpon>ShowDataForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddDepartmentForm.resx">
+      <DependentUpon>AddDepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CorrectionForm.resx">
+      <DependentUpon>CorrectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CorrectionPositionForm.resx">
+      <DependentUpon>CorrectionPositionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeletionForm.resx">
+      <DependentUpon>DeletionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownwardsYearsForm.resx">
+      <DependentUpon>DownwardsYearsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MostProfitableYearsForm.resx">
+      <DependentUpon>MostProfitableYearsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -68,6 +128,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ShowDataForm.resx">
+      <DependentUpon>ShowDataForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

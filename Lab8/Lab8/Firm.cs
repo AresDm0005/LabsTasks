@@ -30,7 +30,7 @@ namespace Lab8
     }
 
     [Serializable]
-    class Firm
+    public class Firm
     {
         public const string depToRemove = "deletedDepartment";   // Идентификатор удаленного подразделения
         public const string incomeIdToRemove = "deletedIncome";  // Идентификатор удаленного индексатора дохода (название)
@@ -206,18 +206,10 @@ namespace Lab8
         {
             IncomeId id = new IncomeId(name, index);
 
-            for (int i = 0; i < incomeRecordCounter; i++)
-            {
-                if (incomeRecords[i] == id)
-                {
-                    departments[name].SetIncome(Department.INCOME_TO_REMOVE, index);
-                    incomeRecords[i] = new IncomeId(incomeIdToRemove, incomeIndexToRemove);
-                    break;
-                }
-            }
+            departments[name].SetIncome(Department.INCOME_TO_REMOVE, index);
 
             toDeleteIncomeCount++;
-            departments[name].SetIncome(double.MinValue, index);
+            departments[name].SetIncome(Department.INCOME_TO_REMOVE, index);
 
 
             if (toDeleteIncomeCount > 0.5 * departmentRecordCounter && toDeleteDepartmentsCount >= 2)
@@ -236,7 +228,17 @@ namespace Lab8
             return incomeRecords[key];
         }
 
-        public bool WasIncomeSet(string name, int index)
+        public bool IsIncomeValid(string name, int index)
+        {
+            return !IsIncomeDeleted(name, index) && IsIncomeSet(name, index);
+        }
+
+        public bool IsIncomeDeleted(string name, int index)
+        {
+            return departments[name].GetIncome(index) == Department.INCOME_TO_REMOVE;
+        }
+
+        public bool IsIncomeSet(string name, int index)
         {
             return !(departments[name].GetIncome(index) == Department.BASE_INCOME_VALUE);
         }
