@@ -112,6 +112,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CorrectionPositionForm";
             this.Text = "CorrectionPositionForm";
             this.groupBox1.ResumeLayout(false);

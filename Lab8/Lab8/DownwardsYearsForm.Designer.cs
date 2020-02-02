@@ -63,6 +63,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.showTable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "DownwardsYearsForm";
             this.Text = "DownwardsYearsForm";
             this.Load += new System.EventHandler(this.DownwardsYearsForm_Load);

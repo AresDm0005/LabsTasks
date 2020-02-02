@@ -168,7 +168,7 @@ namespace Lab8
             {
                 int index = Array.IndexOf(phx.actualDepartmentNames, departmentName.Text);
 
-                if (index == -1)
+                if (index != -1)
                 {
                     errorMsg = "Отделение уже существует!\nДля его редактирования используйте раздел \"Редактирование\" или \"Просмотр данных\"";
                     ok = false;
@@ -259,7 +259,7 @@ namespace Lab8
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            string[] errors = new string[3];
+            string[] errors = { "", "", ""};
             if(CheckNameInput(out errors[0]) && CheckIncomeInputs(out errors[1]) && CheckPositionInput(out errors[2]))
             {
                 string name = departmentName.Text;
@@ -291,24 +291,29 @@ namespace Lab8
                         cur_month = 1;
                         cur_year++;
                     }
-
-                    InitNewAddition();
-                    MessageBox.Show($"Подразделение {name} успешно добавлено", "", MessageBoxButtons.OK);
-                    DialogResult = DialogResult.None;
-                }
-            } 
-            else
-            {
-                string errorMsg = "";
-                foreach(string error in errors)
-                {
-                    if (error != "") errorMsg += error + '\n';
                 }
 
-                MessageBox.Show(errorMsg, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                InitNewAddition();
+                MessageBox.Show($"Подразделение {name} успешно добавлено", "", MessageBoxButtons.OK);
             }
+
+            string errorMsg = "";
+            foreach(string error in errors)
+            {
+                if (error != "") errorMsg += error + '\n';
+            }
+
+            if(errorMsg != "")
+                MessageBox.Show(errorMsg, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+           
+            DialogResult = DialogResult.None;
         }
 
         public Firm GetUpdatedFirm() { return phx; }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+        }
     }
 }

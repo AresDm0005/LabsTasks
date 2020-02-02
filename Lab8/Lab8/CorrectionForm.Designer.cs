@@ -337,6 +337,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.tabControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "CorrectionForm";
             this.Text = "Изменение данных";
             this.Load += new System.EventHandler(this.CorrectionForm_Load);

@@ -90,7 +90,8 @@
             // 
             // closeButton
             // 
-            this.closeButton.Location = new System.Drawing.Point(937, 535);
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.Location = new System.Drawing.Point(928, 539);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(136, 23);
             this.closeButton.TabIndex = 9;
@@ -102,14 +103,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1085, 570);
+            this.AutoScroll = true;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1068, 582);
             this.ControlBox = false;
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.sampleTable);
             this.Controls.Add(this.fontLabel);
             this.Controls.Add(this.showTable);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ShowDataForm";
-            this.Text = "ShowDataForm";
+            this.Text = "Просмотр данных";
             this.Load += new System.EventHandler(this.ShowDataForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

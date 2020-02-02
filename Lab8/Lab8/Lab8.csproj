@@ -71,6 +71,18 @@
       <DependentUpon>DeletionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Department.cs" />
+    <Compile Include="DlgChangeIncome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgChangeIncome.Designer.cs">
+      <DependentUpon>DlgChangeIncome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DlgSetIncome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DlgSetIncome.Designer.cs">
+      <DependentUpon>DlgSetIncome.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownwardsYearsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -109,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeletionForm.resx">
       <DependentUpon>DeletionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgChangeIncome.resx">
+      <DependentUpon>DlgChangeIncome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DlgSetIncome.resx">
+      <DependentUpon>DlgSetIncome.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownwardsYearsForm.resx">
       <DependentUpon>DownwardsYearsForm.cs</DependentUpon>

@@ -6,7 +6,7 @@ namespace Lab8
 {
     public partial class ShowDataForm : Form
     {
-        private string[] years = { "", "2015", "2016", "2017", "2018", "2019" };
+        private string[] years;
         private string[] months = { "", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
         private Firm phx;
 
@@ -14,6 +14,19 @@ namespace Lab8
         {
             InitializeComponent();
             this.phx = phx;
+            SetYears();
+        }
+
+        private void SetYears()
+        {
+            years = new string[phx.yearSpan + 1];
+            years[0] = "";
+
+            for(int i = 1; i <= phx.yearSpan; i++)
+            {
+                years[i] = (phx.startYear + i - 1).ToString();
+            }
+
         }
 
         private void ShowDataForm_Load(object sender, EventArgs e)
@@ -70,9 +83,11 @@ namespace Lab8
                 }
                 else
                 {
-                    Label lab = new Label();
+                    LinkLabel lab = new LinkLabel();
 
                     lab.Anchor = AnchorStyles.None;
+                    lab.Name = $"{name} {index}";
+                    lab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(defaultLinkedLabel_Click);
 
                     if (dep.GetIncome(index) == Department.BASE_INCOME_VALUE || dep.GetIncome(index) == Department.INCOME_TO_REMOVE)
                         lab.Text = "TBD";
@@ -88,9 +103,11 @@ namespace Lab8
             {
                 for (int j = 1; j < 13; j++)
                 {
-                    Label lab = new Label();
+                    LinkLabel lab = new LinkLabel();
 
                     lab.Anchor = AnchorStyles.None;
+                    lab.Name = $"{name} {index}";
+                    lab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(defaultLinkedLabel_Click);
 
                     if (dep.GetIncome(index) == Department.BASE_INCOME_VALUE || dep.GetIncome(index) == Department.INCOME_TO_REMOVE)
                         lab.Text = "TBD";
@@ -106,9 +123,11 @@ namespace Lab8
             {
                 if (j <= phx.endMonth)
                 {
-                    Label lab = new Label();
+                    LinkLabel lab = new LinkLabel();
 
                     lab.Anchor = AnchorStyles.None;
+                    lab.Name = $"{name} {index}";
+                    lab.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(defaultLinkedLabel_Click);
 
                     if (dep.GetIncome(index) == Department.BASE_INCOME_VALUE || dep.GetIncome(index) == Department.INCOME_TO_REMOVE)
                         lab.Text = "TBD";
@@ -171,6 +190,38 @@ namespace Lab8
                 table.Controls.Add(lab, 0, i);
             }
             return table;
+        }
+
+        private void defaultLinkedLabel_Click(object sender, EventArgs e)
+        {
+            LinkLabel label = (LinkLabel)sender;
+
+            string[] labelName = label.Name.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string name = labelName[0];
+            int index = int.Parse(labelName[1]);
+
+            if (label.Text == "TBD")
+            {
+                DlgSetIncome dlg = new DlgSetIncome(phx, name, index);
+                if(dlg.ShowDialog() == DialogResult.OK)
+                {
+                    label.Text = dlg.income.ToString();
+                    phx = dlg.GetUpdatedForm();
+                }
+
+                dlg.Dispose();
+            } 
+            else
+            {
+                DlgChangeIncome dlg = new DlgChangeIncome(phx, name, index);
+                if(dlg.ShowDialog() == DialogResult.OK)
+                {
+                    label.Text = dlg.income.ToString();
+                    phx = dlg.GetUpdatedForm();
+                }
+
+                dlg.Dispose();
+            }
         }
 
         private void closeButton_Click(object sender, EventArgs e)

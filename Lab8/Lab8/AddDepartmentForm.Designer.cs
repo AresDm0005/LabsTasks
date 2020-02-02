@@ -151,6 +151,7 @@
             this.cancelButton.TabIndex = 31;
             this.cancelButton.Text = "Закрыть окно";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // okButton
             // 

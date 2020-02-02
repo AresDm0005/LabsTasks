@@ -86,7 +86,7 @@ namespace Lab8
             toDeleteIncomeCount = 0;
             toDeleteDepartmentsCount = 0;
         }
-        
+
         #region ActionsWithDepartments
         public void AddDepartment(string name, int pos)
         {
@@ -105,7 +105,7 @@ namespace Lab8
             departmentRecords = tmp;
 
             Array.Resize(ref actualDepartmentNames, departCount);
-            actualDepartmentNames[departCount - 1] = name;   
+            actualDepartmentNames[departCount - 1] = name;
         }
 
         public void DeleteDepartment(string name)
@@ -113,7 +113,7 @@ namespace Lab8
             // Коррекция актуальных названий
             string[] tmp = new string[departCount - 1];
             int index = 0;
-            for (int i = 0; i < departCount; i++) 
+            for (int i = 0; i < departCount; i++)
             {
                 if (actualDepartmentNames[i] != name) tmp[index++] = actualDepartmentNames[i];
             }
@@ -134,7 +134,7 @@ namespace Lab8
                     toDeleteIncomeCount++;
                 }
             }
-            
+
             // Удаление из текущего словаря
             departments.Remove(name);
         }
@@ -165,7 +165,7 @@ namespace Lab8
             departmentRecords[index] = rename;
 
             // Изменение в массиве записей доходов
-            for(int i = 0; i<incomeRecordCounter; i++)
+            for (int i = 0; i < incomeRecordCounter; i++)
             {
                 if (incomeRecords[i].name == name) incomeRecords[i].name = rename;
             }
@@ -243,6 +243,16 @@ namespace Lab8
             return !(departments[name].GetIncome(index) == Department.BASE_INCOME_VALUE);
         }
         #endregion
+
+        public int GetCurrentMonth(int index)
+        {
+            return (index + startMonth) % 12;
+        }
+
+        public int GetCurrentYear(int index)
+        {
+            return (index + startMonth - 1) / 12 + startYear;
+        }
 
         public void Task1()
         {
