@@ -7,11 +7,13 @@ namespace Lab8
     public partial class DownwardsYearsForm : Form
     {
         private Firm phx;
+        private string[] monthsNames = { "", "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
 
         public DownwardsYearsForm(Firm phx)
         {
             InitializeComponent();
             this.phx = phx;
+            phx.Task2();
         }
 
         private void DownwardsYearsForm_Load(object sender, EventArgs e)
@@ -21,8 +23,8 @@ namespace Lab8
             showTable.Controls.Add(head, 0, 0);
 
             Label head1 = new Label();
-            head1.Text = $"Периоды"; //; Средний доход по фирме: {phx.averageIncome}
-            head1.Anchor = (AnchorStyles.Left | AnchorStyles.Right);
+            head1.Text = $"Периоды.   Средний доход по фирме: {phx.averageIncome}";
+            head1.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom);
 
 
             showTable.Controls.Add(head1, 1, 0);
@@ -37,7 +39,7 @@ namespace Lab8
                 showTable.RowStyles.Insert(i, new RowStyle(tmp.SizeType, tmp.Height));
             }
 
-            phx.Task2();
+            
 
             int k = 1;
             foreach (string name in phx.actualDepartmentNames)
@@ -54,7 +56,9 @@ namespace Lab8
 
             Label label1 = new Label();
             label1.Anchor = (AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top);
-            label1.Text = $"Самый большой период, с доходом меньше среднего (в месяцах): {dep.longestIncomeFallPeriod}";
+            label1.Text = $"Самый большой период, с доходом меньше среднего (в месяцах): {dep.longestIncomeFallPeriod}. Период с {monthsNames[phx.GetCurrentMonth(dep.indexStartPeriod)]} " +
+                $"{phx.GetCurrentYear(dep.indexStartPeriod)} года по {monthsNames[phx.GetCurrentMonth(dep.indexStartPeriod + dep.longestIncomeFallPeriod)]} " +
+                $"{phx.GetCurrentYear(dep.indexStartPeriod + dep.longestIncomeFallPeriod)} год";
             showTable.Controls.Add(label1, 1, ind);
         }
 

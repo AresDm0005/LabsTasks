@@ -17,7 +17,9 @@ namespace Lab8
 
         private int startMonth;                                   // Номер начального месяца
         private int yearSpan;                                     // На сколько лет распространяются 60 мес. (5 или 6)
-        
+
+        public int indexStartPeriod { get; private set; }
+
         public Department() { }
 
         public Department(string name, int yearSpan, int startMonth)
@@ -53,6 +55,8 @@ namespace Lab8
         {
             int curYear = 0;
             int firstYearEnd = 12 - startMonth + 1;
+            for (int i = 0; i < yearSpan; i++) annualIncome[i] = 0;
+
             for (int i = 0; i < 60; i++)
             {
                 if (i < firstYearEnd)
@@ -99,17 +103,39 @@ namespace Lab8
         {
             int max = 0;
             int cur = 0;
+
+            indexStartPeriod = 0;
+
+            int tmpIndex = 0;
+
             for (int i = 0; i < 60; i++)
             {
-                if ((monthlyIncome[i] != BASE_INCOME_VALUE && monthlyIncome[i] != INCOME_TO_REMOVE) && (monthlyIncome[i] < firmAverageIncome)) cur++;
+                if ((monthlyIncome[i] != BASE_INCOME_VALUE && monthlyIncome[i] != INCOME_TO_REMOVE) && (monthlyIncome[i] < firmAverageIncome))
+                {
+                    if (tmpIndex == -1) tmpIndex = i;
+                    cur++; 
+                }
                 else
                 {
-                    max = Math.Max(max, cur);
+                    if(cur > max)
+                    {
+                        max = cur;
+                        indexStartPeriod = tmpIndex;
+                        tmpIndex = -1;
+                    }
+                    
                     cur = 0;
                 }
             }
 
-            longestIncomeFallPeriod = Math.Max(max, cur);
+            if (cur > max)
+            {
+                longestIncomeFallPeriod = cur;
+                indexStartPeriod = tmpIndex;
+            } else
+            {
+                longestIncomeFallPeriod = max;
+            }
         }
     }
 }

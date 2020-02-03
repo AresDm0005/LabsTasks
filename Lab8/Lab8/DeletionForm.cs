@@ -244,7 +244,7 @@ namespace Lab8
 
                     if(!phx.IsIncomeDeleted(id.name, id.index))
                     {
-                        phx.DeleteIncome(number);
+                        phx.DeleteIncome(number - 1);
                         MessageBox.Show($"Значение дохода за {monthsNames[month]} месяц {year} год удалено", "", MessageBoxButtons.OK);
                     } 
                     else
