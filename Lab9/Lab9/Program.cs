@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lab9
 {
@@ -45,11 +41,41 @@ namespace Lab9
             else Console.WriteLine($"{t2.ToString()}  >= {t1.ToString()}");
         }
 
+        public static void Part3()
+        {
+            TimeArray array = new TimeArray(10);
+            array.Show();
+
+            Console.WriteLine();
+
+            array = new TimeArray();
+            array.Show();
+
+            Console.WriteLine();
+
+            int N = 5;
+            Time[] arr = new Time[N];
+            for(int i = 0; i<N; i++)
+            {
+                int h = int.Parse(Console.ReadLine()), m = int.Parse(Console.ReadLine());
+
+                arr[i] = new Time(h, m);
+            }
+
+            array = new TimeArray(arr.Length, arr);
+
+            Time max = array[0];
+            for (int i = 0; i < array.Length; i++) if (array[i] > max) max = array[i];
+
+            array.MaxValue().Show();
+            max.Show();
+        }
+
         static void Main(string[] args)
         {
             //Part1();
-            Part2();
-
+            //Part2();
+            Part3();
         }
     }
 }
