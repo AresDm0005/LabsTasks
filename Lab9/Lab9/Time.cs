@@ -8,6 +8,7 @@ namespace Lab9
 {
     class Time
     {
+        // Part 1
         private int hours;
         private int minutes;
         private static int count = 0;
@@ -93,5 +94,39 @@ namespace Lab9
         {
             return $"{Hours} ч {Minutes} мин.";
         }
+
+        // Part 2
+        public static Time operator ++(Time t)
+        {
+            t.Minutes++;
+            return t;
+        }
+
+        public static Time operator --(Time t)
+        {
+            t.Minutes--;
+            return t;
+        }
+
+        public static implicit operator int(Time t)
+        {
+            return t.Hours * 60 + t.Minutes;
+        }
+
+        public static explicit operator bool(Time t)
+        {
+            return (t.Hours != 0 && t.Minutes != 0);
+        }
+
+        public static bool operator <(Time left, Time right)
+        {
+            return (int)left < (int)right;            
+        }
+
+        public static bool operator >(Time left, Time right)
+        {
+            return (int)left > (int)right;
+        }
+
     }
 }
