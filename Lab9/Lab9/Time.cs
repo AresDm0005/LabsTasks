@@ -2,12 +2,13 @@
 
 namespace Lab9
 {
-    class Time
+    public class Time
     {
         // Part 1
         private int hours;
         private int minutes;
         private static int count = 0;
+        private int negHoursCheck = 0;
 
         public int Hours
         {
@@ -18,6 +19,7 @@ namespace Lab9
                 {
                     hours = 0;
                     minutes = 0;
+                    negHoursCheck = value;
                 }
                 else hours = value;
             }
@@ -31,7 +33,7 @@ namespace Lab9
                 if (value < 0)
                 {
                     value = -value;
-                    if(value < hours * 60)
+                    if (value < hours * 60)
                     {
                         hours -= (value - 1) / 60 + 1;
                         minutes = 60 - value % 60;
@@ -42,13 +44,19 @@ namespace Lab9
                         hours = 0;
                     }
                 }
-                else if (value >= 60)
+                else
                 {
                     minutes = value;
+                    if (negHoursCheck < 0)
+                    {
+                        minutes -= Math.Abs(negHoursCheck) * 60;
+
+                    }
                     hours += minutes / 60;
                     minutes %= 60;
                 }
-                else minutes = value;
+
+                negHoursCheck = 0;
             }
         }
 
@@ -82,7 +90,7 @@ namespace Lab9
 
         public Time DeductTime(Time t)
         {
-            Time tmp = new Time(this.Hours -= t.Hours, this.Minutes - t.Minutes);
+            Time tmp = new Time(this.hours - t.hours, this.minutes - t.minutes);
             return tmp;
         }
 
@@ -110,8 +118,8 @@ namespace Lab9
         }
 
         public static explicit operator bool(Time t)
-        {
-            return (t.Hours != 0 && t.Minutes != 0);
+        {   
+            return (t.hours != 0 && t.minutes != 0);
         }
 
         public static bool operator <(Time left, Time right)
@@ -122,6 +130,23 @@ namespace Lab9
         public static bool operator >(Time left, Time right)
         {
             return (int)left > (int)right;
+        }
+
+        // Test Required
+        public override bool Equals(Object obj)
+        {
+            // Проверка на null и соответствие типов
+            if (obj == null || !this.GetType().Equals(obj.GetType())) return false;
+            else
+            {
+                Time time = (Time)obj;
+                return (minutes == time.minutes && hours == time.hours);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return hours * 60 + minutes;
         }
     }
 }

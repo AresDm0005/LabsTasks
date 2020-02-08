@@ -55,11 +55,18 @@ namespace Lab9
 
             int N = 5;
             Time[] arr = new Time[N];
-            for(int i = 0; i<N; i++)
+            for(int i = 0; i<=N; i++)
             {
                 int h = int.Parse(Console.ReadLine()), m = int.Parse(Console.ReadLine());
 
-                arr[i] = new Time(h, m);
+                try
+                {
+                    arr[i] = new Time(h, m);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("Индекс вне диапазона");
+                }
             }
 
             array = new TimeArray(arr.Length, arr);
@@ -69,13 +76,14 @@ namespace Lab9
 
             array.MaxValue().Show();
             max.Show();
+
         }
 
         static void Main(string[] args)
         {
-            //Part1();
+            Part1();
             //Part2();
-            Part3();
+            //Part3();
         }
     }
 }

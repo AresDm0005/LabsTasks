@@ -2,7 +2,7 @@
 
 namespace Lab9
 {
-    class TimeArray
+    public class TimeArray
     {
         //Part 3
         private Time[] arr;
@@ -19,26 +19,30 @@ namespace Lab9
 
         public Time this[int index]
         {
-            get { return arr[index]; }
-            private set
+            get {
+                if (length > 0 && (index < 0 || index >= length) || length == 0) throw new IndexOutOfRangeException();
+                return arr[index];
+            }
+            set
             {
+                if (length > 0 && (index < 0 || index >= length) || length == 0) throw new IndexOutOfRangeException();
                 arr[index] = value;
             }
         }
 
         public TimeArray()
         {
-            length = 0;
+            Length = 0;
             arr = new Time[0];
         }
 
         public TimeArray(int size)
         {
-            length = size;
+            Length = size;
             arr = new Time[size];
 
             Random rand = new Random();
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 arr[i] = new Time(rand.Next(0, 24), rand.Next(0, 60));
             }
@@ -46,10 +50,10 @@ namespace Lab9
 
         public TimeArray(int size, Time[] times)
         {
-            length = size;
+            Length = size;
             arr = new Time[size];
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < Length; i++)
             {
                 arr[i] = times[i];
             }
@@ -63,7 +67,7 @@ namespace Lab9
         public Time MaxValue()
         {
             Time max = arr[0];
-            for (int i = 1; i < length; i++)
+            for (int i = 1; i < Length; i++)
             {
                 if (arr[i] > max) max = arr[i];
             }
