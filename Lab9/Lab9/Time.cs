@@ -60,7 +60,7 @@ namespace Lab9
             }
         }
 
-        public int Count
+        public static int Count
         {
             get { return count; }
             private set { count = value; }

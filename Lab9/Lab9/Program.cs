@@ -18,6 +18,7 @@ namespace Lab9
 
             Console.WriteLine(t3.ToString());
             Console.WriteLine(t4.ToString());
+            Console.WriteLine($"Создано объектов: {Time.Count}");
         }
 
         public static void Part2()
