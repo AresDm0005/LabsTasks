@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab10.FoodProduct">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAIAAAAAAAEAAAAABAAAAAUAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>FoodProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab10.Goods">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBAAAIQQAAAEQEAAAAABAQAAAEAACAAABAgAAAgBA=</HashCode>
+      <FileName>Goods.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab10.MilkProduct">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAABAAACAFAAAgAQAAAAAAAAA=</HashCode>
+      <FileName>Milk.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab10.Program" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAQAAAAAAAAAAEAAAAAAgAIAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab10.Toys">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAABAAAAAFAAACAwAAAgAAAAA=</HashCode>
+      <FileName>Toys.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Lab10.IExecutable">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAQAAAEAAAAAABAAAAAgBA=</HashCode>
+      <FileName>Goods.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
