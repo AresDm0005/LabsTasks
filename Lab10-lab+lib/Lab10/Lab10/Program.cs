@@ -179,7 +179,7 @@ namespace Lab10
                             }
 
                             if (count > 0)
-                                Console.WriteLine($"Общася стоимость товаров, произведенных {manuf} = {sum} за {count} товаров");
+                                Console.WriteLine($"Общая стоимость товаров, произведенных {manuf} = {sum} за {count} товаров");
 
                             break;
                         }
