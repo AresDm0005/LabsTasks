@@ -4,7 +4,7 @@ using GoodsTypes;
 
 namespace Lab11
 {
-    class StackPart
+    class ListPart
     {
         private static Random rand = new Random();
         private static string[] manufacturers;
@@ -103,20 +103,20 @@ namespace Lab11
             }
         }
 
-        private static Stack<Goods> MakeCollection(int size)
+        private static List<Goods> MakeCollection(int size)
         {
-            Stack<Goods> goods = new Stack<Goods>();
+            List<Goods> goods = new List<Goods>();
 
-            for (int i = 0; i < size; i++) goods.Push(RandomItem());
+            for (int i = 0; i < size; i++) goods.Add(RandomItem());
 
             return goods;
         }
 
-        private static void ShowCollection(string message, ref Stack<Goods> goods)
+        private static void ShowCollection(string message, ref List<Goods> goods)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(message);
-            foreach (Goods good in goods.ToArray()) good.Show();
+            foreach (Goods good in goods) good.Show();
             Console.ResetColor();
         }
 
@@ -138,11 +138,10 @@ namespace Lab11
             Console.WriteLine("Создание коллекции:");
             int size = ReadInteger("Введите размер коллекции: ", 1, 25);
 
-            Stack<Goods> goods = MakeCollection(size);
+            List<Goods> goods = MakeCollection(size);
             ShowCollection("Созданная коллекция:", ref goods);
-
+            
             bool finish = false;
-
             do
             {
                 Menu();
@@ -152,15 +151,15 @@ namespace Lab11
                 {
                     case 1:
                         {
-                            goods.Push(RandomItem());
+                            goods.Add(RandomItem());
                             Console.WriteLine("Новый элемент:");
-                            goods.Peek().Show();
+                            goods[goods.Count-1].Show();
                             break;
                         }
                     case 2:
                         {
-                            Goods item = goods.Pop();
-                            Console.WriteLine($"Элемент {item.Title} удален\n");
+                            Console.WriteLine($"Элемент {goods[goods.Count-1].Title} удален\n");
+                            goods.RemoveAt(goods.Count - 1);                            
                             break;
                         }
                     case 3:
@@ -242,27 +241,27 @@ namespace Lab11
                             Goods[] tmpGoods = goods.ToArray();
                             Array.Sort(tmpGoods, new DescendingSortByRevenue());
 
-                            goods = new Stack<Goods>();
-                            foreach (Goods good in tmpGoods) goods.Push(good);
+                            goods = new List<Goods>();
+                            foreach (Goods good in tmpGoods) goods.Add(good);
 
                             ShowCollection("Отсортированная коллекция:", ref goods);
                             break;
                         }
                     case 7:
                         {
-                            Stack<Goods> items = new Stack<Goods>();
+                            List<Goods> items = new List<Goods>();
 
                             int i = 0;
-                            foreach (Goods good in goods.ToArray()) items.Push((Goods)good.Clone());
+                            foreach (Goods good in goods) items.Add((Goods)good.Clone());
 
-                            int quantity = goods.Peek().Quantity;
+                            int quantity = goods[goods.Count-1].Quantity;
 
-                            goods.Peek().DeliverMade(100000);
+                            goods[goods.Count - 1].DeliverMade(100000);
 
-                            Console.WriteLine("Goods: " + goods.Peek().Quantity);
-                            Console.WriteLine("Cloned: " + items.Peek().Quantity);
+                            Console.WriteLine("Goods: " + goods[goods.Count - 1].Quantity);
+                            Console.WriteLine("Cloned: " + items[goods.Count - 1].Quantity);
 
-                            goods.Peek().DeliverMade(quantity);
+                            goods[goods.Count - 1].DeliverMade(quantity);
                             break;
                         }
                     default:
@@ -274,5 +273,6 @@ namespace Lab11
                 Console.WriteLine();
             } while (!finish);
         }
+
     }
 }

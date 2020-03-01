@@ -13,12 +13,12 @@ namespace Lab11
 
         public static void Part2()
         {
-
+            ListPart.Go();
         }
 
         public static void Part3()
         {
-
+            
         }
 
 
