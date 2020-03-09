@@ -65,5 +65,18 @@ namespace GoodsTypes
         {
             return $"Продукт: {Title}, {Manufacturer}, {Manufactured}, {storageLife} ч, {Price}р., {Quantity} шт.";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            FoodProduct good = (FoodProduct)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
     }
 }

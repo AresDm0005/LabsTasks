@@ -60,5 +60,18 @@ namespace GoodsTypes
         {
             return $"Игрушка: {Title}, {Manufacturer}, {Type}, {AgeRestriction}+, {Price}р., {Quantity} шт.";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            Toys good = (Toys)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
     }
 }

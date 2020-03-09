@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Lab11
 {
-    class MyDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICloneable
+    public class MyDictionary<TKey, TValue> : IDictionary<TKey, TValue>, ICloneable
     {
         private struct Entry
         {
@@ -84,7 +84,13 @@ namespace Lab11
 
         public MyDictionary(MyDictionary<TKey, TValue> dictionary)
         {
+            Initialize(dictionary.Count);
+            this.comparer = EqualityComparer<TKey>.Default;
 
+            foreach (KeyValuePair<TKey, TValue> pair in dictionary)
+            {
+                Add(pair);
+            }
         }
 
         public TValue this[TKey key]
@@ -158,7 +164,7 @@ namespace Lab11
             entries = newEntries;
         }
 
-        public void Insert(TKey key, TValue value, bool add)
+        private void Insert(TKey key, TValue value, bool add)
         {   // Общий метод для добавления/изменения пар ключ-значение
 
             if (key == null) throw new ArgumentNullException();

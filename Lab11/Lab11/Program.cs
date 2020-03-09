@@ -445,73 +445,6 @@ namespace Lab11
 
             Console.WriteLine($"Создается {N} объектов и записываются в словарь, инициализированный под {N} записей");
 
-            Goods item = new Goods(); // For removal
-            int repetition = 0;
-            for (int i = 0; i < N; i++)
-            {
-                Goods it = RandomItem();
-                try
-                {
-                    dict.Add(it.Title, it);
-                }
-                catch
-                {
-                    repetition++;
-                    dict[it.Title] = it;
-                }
-
-                if (i == N / 2) item = (Goods)it.Clone();
-            }
-
-            Console.WriteLine($"\nБыло создано {N - repetition} объектов с неповторяющимися названиями");
-            Console.WriteLine($"В словаре находится {dict.Count} объектов");
-            Console.WriteLine($"Оставшийся запас словаря - {dict.Capacity - dict.Count}");
-
-            ICollection<string> keys = dict.Keys;
-            Console.WriteLine("\nИмеющиеся ключи:");
-            foreach (string key in keys) { Console.WriteLine(key); }
-
-            ICollection<Goods> values = dict.Values;
-            Console.WriteLine("\nИмеющиеся значения:");
-            foreach (Goods val in values) { Console.WriteLine(val); }
-
-            Console.Write("\nВведите ключ, для проверки его наличия: ");
-            string txt = Console.ReadLine();
-            Console.WriteLine(dict.ContainsKey(txt) ? "Имеется" : "Такого ключа нет");
-
-            Console.WriteLine($"\nПроверка на наличие объекта: {item.ToString()}");
-            Console.WriteLine(dict.ContainsValue(item) ? "Имеется" : "Такого значения нет");
-
-            Goods good = new Goods("NewObj", "NewManuf", 100, 1000);
-            dict.Add(good.Title, good);
-            Console.WriteLine($"\nДобавлен новый объект с названием {good.Title}\nОбъект:");
-            Console.WriteLine(dict["NewObj"]);
-
-
-            Console.Write("\n\nВведите ключ, для удаления определения: ");
-            string rem = Console.ReadLine();
-            dict.Remove(rem);
-            Console.WriteLine(dict.ContainsKey(rem) ? "Имеется" : "Такого значения нет");
-
-            dict.Clear();
-            Console.WriteLine($"\nСловарь очищен, объектов в нем: {dict.Count}");
-
-            MyDictionary<string, Goods> newDict = (MyDictionary<string, Goods>)dict.Clone();
-
-            Console.WriteLine("\nСклонированный словарь:\nKey : Values Revenue");
-            foreach (KeyValuePair<string, Goods> pair in newDict)
-            {
-                Console.WriteLine($"{pair.Key} : {pair.Value.TotalRevenue()}");
-            }
-        }
-
-        public static void Checks()
-        {
-            int N = 5;
-            MyDictionary<string, Goods> dict = new MyDictionary<string, Goods>(N);
-
-            Console.WriteLine($"Создается {N} объектов и записываются в словарь, инициализированный под {N} записей");
-
             int repetition = 0;
             string itemTitle = "";
             for (int i = 0; i < N; i++)
@@ -587,9 +520,7 @@ namespace Lab11
             Console.SetWindowSize(200, 60);
             //Part1();
             //Part2();
-            //Part3();
-
-            Checks();
+            Part3();
         }
     }
 }

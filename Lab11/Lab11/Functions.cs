@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Lab11
 {
-    class Functions
+    public class Functions
     {
         private static readonly int[] primes = {
             3, 7, 11, 17, 23, 29, 37, 47, 59, 71, 89, 107, 131, 163, 197, 239, 293, 353, 431, 521, 631, 761, 919,

@@ -39,8 +39,7 @@ namespace GoodsTypes
             return good1.TotalRevenue() - good2.TotalRevenue();
         }
     }
-
-
+    
     public class Goods : IExecutable
     {
         protected int price;
@@ -134,6 +133,19 @@ namespace GoodsTypes
         public override string ToString()
         {
             return $"Товар: {Title}, {Manufacturer}, {Price}р., {Quantity}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            Goods good = (Goods)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
         }
 
         #region Interface_Options
