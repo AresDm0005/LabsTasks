@@ -39,7 +39,8 @@ namespace GoodsTypes
             return good1.TotalRevenue() - good2.TotalRevenue();
         }
     }
-    
+
+
     public class Goods : IExecutable
     {
         protected int price;

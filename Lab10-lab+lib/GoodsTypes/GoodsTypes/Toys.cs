@@ -73,5 +73,10 @@ namespace GoodsTypes
         {
             return this.ToString().GetHashCode();
         }
+
+        public Goods BaseGoods
+        {
+            get { return new Goods(Title, Manufacturer, Price, Quantity); }
+        } 
     }
 }
