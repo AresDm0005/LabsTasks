@@ -2,7 +2,7 @@
 
 namespace GoodsTypes
 {
-    public class Toys : Goods
+    public class Toys : Goods, ICloneable
     {
         private int ageRestriction;
         private string type;
@@ -72,6 +72,11 @@ namespace GoodsTypes
         public override int GetHashCode()
         {
             return this.ToString().GetHashCode();
+        }
+
+        public new object Clone()
+        {
+            return new Toys(Title, Manufacturer, Price, Quantity, AgeRestriction, Type);
         }
 
         public Goods BaseGoods

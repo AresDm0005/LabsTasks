@@ -440,7 +440,10 @@ namespace Lab11
 
         public static void Part3()
         {
-            
+            TestCollection test = new TestCollection(1000);
+            test.PrintAllItems();
+
+            test.ContainsTime();
         }
 
         static void Main(string[] args)
