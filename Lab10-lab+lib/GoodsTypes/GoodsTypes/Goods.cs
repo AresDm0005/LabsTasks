@@ -164,7 +164,7 @@ namespace GoodsTypes
             return good1.TotalRevenue() - good2.TotalRevenue();
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
             return new Goods(Title, Manufacturer, Price, Quantity);
         }

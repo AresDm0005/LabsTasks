@@ -79,5 +79,10 @@ namespace GoodsTypes
         {
             return this.ToString().GetHashCode();
         }
+
+        public override object Clone()
+        {
+            return new MilkProduct(Title, Manufacturer, Price, Quantity, Manufactured, StorageLife, Type, Weight);
+        }
     }
 }

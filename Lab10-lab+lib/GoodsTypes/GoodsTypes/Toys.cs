@@ -74,7 +74,7 @@ namespace GoodsTypes
             return this.ToString().GetHashCode();
         }
 
-        public new object Clone()
+        public override object Clone()
         {
             return new Toys(Title, Manufacturer, Price, Quantity, AgeRestriction, Type);
         }

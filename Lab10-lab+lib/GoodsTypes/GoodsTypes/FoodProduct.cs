@@ -61,6 +61,11 @@ namespace GoodsTypes
                 $"Стоимость: {Price}р., Количество на складе: {Quantity} шт.\n");
         }
 
+        public override object Clone()
+        {
+            return new FoodProduct(Title, Manufacturer, Price, Quantity, Manufactured, StorageLife);
+        }
+
         public override string ToString()
         {
             return $"Продукт: {Title}, {Manufacturer}, {Manufactured}, {storageLife} ч, {Price}р., {Quantity} шт.";

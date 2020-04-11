@@ -43,7 +43,41 @@ namespace Lab11
 
         public int Size { get; private set; }
 
-        private Goods RandomItem()
+        public void AddItem(Goods good, Toys toy)
+        {
+            if(DictTypes.ContainsKey((Goods)good.Clone()) || DictTypes.ContainsValue((Toys)toy.Clone()))
+            {
+                Console.WriteLine("Такие элементы уже существуют");
+                return;
+            }
+
+            ListKey.AddLast((Goods)good.Clone());
+            ListString.AddLast(good.ToString());
+
+            DictTypes.Add((Goods)good.Clone(), (Toys)toy.Clone());
+            DictString.Add(good.ToString(), (Toys)toy.Clone());
+
+            Size = ListString.Count;
+        }
+
+        public void RemoveItem(Goods good)
+        {
+            if (!DictTypes.ContainsKey((Goods)good.Clone()))
+            {
+                Console.WriteLine("Такого ключа изначально не существует");
+                return;
+            }
+
+            ListKey.Remove((Goods)good.Clone());
+            ListString.Remove(good.ToString());
+
+            DictTypes.Remove((Goods)good.Clone());
+            DictString.Remove(good.ToString());
+
+            Size = ListString.Count;
+        }
+
+        public  Goods RandomItem()
         {
             string title = titles[rand.Next(titles.Length)];
             string manuf = manufs[rand.Next(manufs.Length)];
@@ -53,7 +87,7 @@ namespace Lab11
             return new Goods(title, manuf, price, quantity);
         }
 
-        private Toys RandomItem(Goods good)
+        public Toys RandomItem(Goods good)
         {
             string[] types = { "Мягкая игрушка", "Настольная игра", "Конструктор" };
             string type = types[rand.Next(types.Length)];
@@ -161,6 +195,8 @@ namespace Lab11
         {
             string[] collNames = { "Коллекция1<TKey>", "Коллекция1<string>", "Коллекция2<TKey, TValue>", "Коллекция2<string, TValue>", "Коллекция2<TKey, TValue>" };
             string[] funcName = { "Contains", "Contains", "ContainsKey", "ContainsKey", "ContainsValue" };
+
+            Console.WriteLine($"\n\nРазмер массива: {Size}\n");
             for(int i = 0; i<times.GetLength(0); i++)
             {
                 Console.WriteLine($"{collNames[i]}, метод: {funcName[i]}");

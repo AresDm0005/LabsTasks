@@ -159,12 +159,11 @@ namespace Lab11
         {
             Console.WriteLine("Создание коллекции:");
             int size = ReadInteger("Введите размер коллекции: ", 1, 25);
-
+                        
             Stack<Goods> goods = MakeStack(size);
             ShowCollection("Созданная коллекция:", ref goods);
 
             bool finish = false;
-
             do
             {
                 PartsMenu();
@@ -196,7 +195,7 @@ namespace Lab11
                             int sum = 0, count = 0;
                             foreach (Goods good in goods)
                             {
-                                if (good.Title == manuf)
+                                if (good.Manufacturer == manuf)
                                 {
                                     sum += good.TotalRevenue();
                                     count++;
@@ -274,7 +273,6 @@ namespace Lab11
                         {
                             Stack<Goods> items = new Stack<Goods>();
 
-                            int i = 0;
                             foreach (Goods good in goods.ToArray()) items.Push((Goods)good.Clone());
 
                             int quantity = goods.Peek().Quantity;
@@ -295,6 +293,8 @@ namespace Lab11
                 }
                 Console.WriteLine();
             } while (!finish);
+
+
         }
 
         public static void Part2()
@@ -337,7 +337,7 @@ namespace Lab11
                             int sum = 0, count = 0;
                             foreach (Goods good in goods)
                             {
-                                if (good.Title == manuf)
+                                if (good.Manufacturer == manuf)
                                 {
                                     sum += good.TotalRevenue();
                                     count++;
@@ -441,9 +441,32 @@ namespace Lab11
         public static void Part3()
         {
             TestCollection test = new TestCollection(1000);
-            test.PrintAllItems();
+
+            //test.PrintAllItems();            
+            test.ContainsTime();
+
+            /*
+            List<Goods> goods = new List<Goods>();
+            List<Toys> toys = new List<Toys>();
+
+            for(int i = 0; i < 9000; i++)
+            {
+                goods.Add(test.RandomItem());
+                toys.Add(test.RandomItem(goods[i]));
+
+                test.AddItem(goods[i], toys[i]);
+                if (i % 1000 == 0) Console.WriteLine(i);
+            }
 
             test.ContainsTime();
+
+            for(int i = 1359; i<2359; i++)
+            {
+                test.RemoveItem(goods[i]);
+            }
+
+            test.ContainsTime();
+            */
         }
 
         static void Main(string[] args)
