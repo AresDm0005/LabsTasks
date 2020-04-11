@@ -136,6 +136,19 @@ namespace GoodsTypes
             return $"Товар: {Title}, {Manufacturer}, {Price}р., {Quantity}";
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            Goods good = (Goods)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
         #region Interface_Options
         public int CompareTo(object obj)
         {
@@ -151,7 +164,7 @@ namespace GoodsTypes
             return good1.TotalRevenue() - good2.TotalRevenue();
         }
 
-        public object Clone()
+        public virtual object Clone()
         {
             return new Goods(Title, Manufacturer, Price, Quantity);
         }

@@ -2,7 +2,7 @@
 
 namespace GoodsTypes
 {
-    public class Toys : Goods
+    public class Toys : Goods, ICloneable
     {
         private int ageRestriction;
         private string type;
@@ -60,5 +60,28 @@ namespace GoodsTypes
         {
             return $"Игрушка: {Title}, {Manufacturer}, {Type}, {AgeRestriction}+, {Price}р., {Quantity} шт.";
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            Toys good = (Toys)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public override object Clone()
+        {
+            return new Toys(Title, Manufacturer, Price, Quantity, AgeRestriction, Type);
+        }
+
+        public Goods BaseGoods
+        {
+            get { return new Goods(Title, Manufacturer, Price, Quantity); }
+        } 
     }
 }

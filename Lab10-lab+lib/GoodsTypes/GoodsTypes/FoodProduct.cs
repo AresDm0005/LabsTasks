@@ -61,9 +61,35 @@ namespace GoodsTypes
                 $"Стоимость: {Price}р., Количество на складе: {Quantity} шт.\n");
         }
 
+        public override object Clone()
+        {
+            return new FoodProduct(Title, Manufacturer, Price, Quantity, Manufactured, StorageLife);
+        }
+
         public override string ToString()
         {
             return $"Продукт: {Title}, {Manufacturer}, {Manufactured}, {storageLife} ч, {Price}р., {Quantity} шт.";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            FoodProduct good = (FoodProduct)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public Goods BaseGoods
+        {
+            get
+            {
+                return new Goods(Title, Manufacturer, Price, Quantity);
+            }
         }
     }
 }

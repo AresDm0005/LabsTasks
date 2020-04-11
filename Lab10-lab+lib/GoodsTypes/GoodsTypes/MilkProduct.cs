@@ -67,5 +67,22 @@ namespace GoodsTypes
             return $"Молочка: {Title}, {Manufacturer}, {Manufactured}, {StorageLife}ч.,\n{Type}, {Weight}, {Price}p., {Quantity}";
         }
 
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType())) return false;
+
+            MilkProduct good = (MilkProduct)obj;
+            return this.ToString() == good.ToString();
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ToString().GetHashCode();
+        }
+
+        public override object Clone()
+        {
+            return new MilkProduct(Title, Manufacturer, Price, Quantity, Manufactured, StorageLife, Type, Weight);
+        }
     }
 }
