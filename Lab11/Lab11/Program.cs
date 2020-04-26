@@ -440,33 +440,8 @@ namespace Lab11
 
         public static void Part3()
         {
-            TestCollection test = new TestCollection(1000);
-
-            //test.PrintAllItems();            
+            TestCollection test = new TestCollection(1000);        
             test.ContainsTime();
-
-            /*
-            List<Goods> goods = new List<Goods>();
-            List<Toys> toys = new List<Toys>();
-
-            for(int i = 0; i < 9000; i++)
-            {
-                goods.Add(test.RandomItem());
-                toys.Add(test.RandomItem(goods[i]));
-
-                test.AddItem(goods[i], toys[i]);
-                if (i % 1000 == 0) Console.WriteLine(i);
-            }
-
-            test.ContainsTime();
-
-            for(int i = 1359; i<2359; i++)
-            {
-                test.RemoveItem(goods[i]);
-            }
-
-            test.ContainsTime();
-            */
         }
 
         static void Main(string[] args)

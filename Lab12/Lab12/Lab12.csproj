@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4AC60099-CCFA-46FA-850D-2EC9977388D8}</ProjectGuid>
+    <ProjectGuid>{827C07CC-ED8B-4932-AD34-8B22202E270B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Lab11</RootNamespace>
-    <AssemblyName>Lab11</AssemblyName>
+    <RootNamespace>Lab12</RootNamespace>
+    <AssemblyName>Lab12</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,9 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GoodsTypes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\GoodsTypes.dll</HintPath>
+    <Reference Include="GoodsTypes">
+      <HintPath>dll\GoodsTypes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,14 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinaryTree.cs" />
+    <Compile Include="MyQueue.cs" />
+    <Compile Include="OneWayList.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCollection.cs" />
+    <Compile Include="TwoWayList.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

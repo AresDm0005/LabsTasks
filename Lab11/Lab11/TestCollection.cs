@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GoodsTypes;
 
 namespace Lab11
@@ -17,83 +14,24 @@ namespace Lab11
         private Goods[] arr;
         private Toys[] mas;
 
-        public LinkedList<Goods> ListKey
-        {
-            get { return listKey; }
-        }
-
-        public LinkedList<string> ListString
-        {
-            get { return listString; }
-        }
-
-        public Dictionary<Goods, Toys> DictTypes
-        {
-            get { return dictTypes; }
-        }
-
-        public Dictionary<string, Toys> DictString
-        {
-            get { return dictString; }
-        }
-
         private string[] titles = { "Монополия", "Домик", "Простоквашино", "Ряженка", "Маска", "Матроскин", "Яблоки", "Куб", "Треугольник", "Пакет", "Калька", "Чудо", "Языки", "Пластик" };
         private string[] manufs = { "Nestle", "BMW", "Pepsi Co.", "Coca Cola Co.", "Нытвенский молзавод", "Hasbro", "Lego", "Asus" };
         private static Random rand = new Random();
 
         public int Size { get; private set; }
 
-        public void AddItem(Goods good, Toys toy)
-        {
-            if(DictTypes.ContainsKey((Goods)good.Clone()) || DictTypes.ContainsValue((Toys)toy.Clone()))
-            {
-                Console.WriteLine("Такие элементы уже существуют");
-                return;
-            }
-
-            ListKey.AddLast((Goods)good.Clone());
-            ListString.AddLast(good.ToString());
-
-            DictTypes.Add((Goods)good.Clone(), (Toys)toy.Clone());
-            DictString.Add(good.ToString(), (Toys)toy.Clone());
-
-            Size = ListString.Count;
-        }
-
-        public void RemoveItem(Goods good)
-        {
-            if (!DictTypes.ContainsKey((Goods)good.Clone()))
-            {
-                Console.WriteLine("Такого ключа изначально не существует");
-                return;
-            }
-
-            ListKey.Remove((Goods)good.Clone());
-            ListString.Remove(good.ToString());
-
-            DictTypes.Remove((Goods)good.Clone());
-            DictString.Remove(good.ToString());
-
-            Size = ListString.Count;
-        }
-
-        public  Goods RandomItem()
+        public Toys RandomItem()
         {
             string title = titles[rand.Next(titles.Length)];
             string manuf = manufs[rand.Next(manufs.Length)];
             int price = rand.Next(49, 2000);
             int quantity = rand.Next(4, 51) * 200;
-
-            return new Goods(title, manuf, price, quantity);
-        }
-
-        public Toys RandomItem(Goods good)
-        {
             string[] types = { "Мягкая игрушка", "Настольная игра", "Конструктор" };
             string type = types[rand.Next(types.Length)];
             int age = rand.Next(19);
-            Toys toys = new Toys(good.Title, good.Manufacturer, good.Price, good.Quantity, age, type);
+            Toys toys = new Toys(title, manuf, price, quantity, age, type);
             Goods tmp = toys.BaseGoods;
+
             return toys;
         }
 
@@ -110,28 +48,61 @@ namespace Lab11
             Size = size;
 
             for (int i = 0; i < size; i++)
-            {
-                Goods item = RandomItem();
-                Toys toy = RandomItem(item);
+            {   
+                Toys toy = RandomItem();
 
-                arr[i] = item;
+                arr[i] = toy.BaseGoods;
                 mas[i] = toy;
 
-                listKey.AddLast(item);
-                listString.AddLast(item.ToString());
+                listKey.AddLast(toy.BaseGoods);
+                listString.AddLast(toy.BaseGoods.ToString());
 
-                dictTypes.Add(item, toy);
-                dictString.Add(item.ToString(), toy);
+                dictTypes.Add(toy.BaseGoods, toy);
+                dictString.Add(toy.BaseGoods.ToString(), toy);
             }
+        }
+
+        public void AddItem(Goods good, Toys toy)
+        {
+            if(dictTypes.ContainsKey((Goods)good.Clone()) || dictTypes.ContainsValue((Toys)toy.Clone()))
+            {
+                Console.WriteLine("Такой элемент уже существуют");
+                return;
+            }
+
+            listKey.AddLast((Goods)good.Clone());
+            listString.AddLast(good.ToString());
+
+            dictTypes.Add((Goods)good.Clone(), (Toys)toy.Clone());
+            dictString.Add(good.ToString(), (Toys)toy.Clone());
+
+            Size = listString.Count;
+        }
+
+        public void RemoveItem(Goods good)
+        {
+            if (!dictTypes.ContainsKey((Goods)good.Clone()))
+            {
+                Console.WriteLine("Такого ключа изначально не существует");
+                return;
+            }
+
+            listKey.Remove((Goods)good.Clone());
+            listString.Remove(good.ToString());
+
+            dictTypes.Remove((Goods)good.Clone());
+            dictString.Remove(good.ToString());
+
+            Size = listString.Count;
         }
 
         public void ContainsTime()
         {
-            // 0 - Constains по ListKey
-            // 1 - Contains по ListString
-            // 2 - ContainsKey по DictTypes
-            // 3 - ContainsKey по DictString
-            // 4 - ContainsValue по DictTypes
+            // 0 - Constains по listKey
+            // 1 - Contains по listString
+            // 2 - ContainsKey по dictTypes
+            // 3 - ContainsKey по dictString
+            // 4 - ContainsValue по dictTypes
             Stopwatch[,] times = new Stopwatch[5, 4];
             bool[,] found = new bool[5, 4];
 
@@ -144,7 +115,7 @@ namespace Lab11
                 times[0, i] = new Stopwatch();
                 times[0, i].Start();
 
-                found[0, i] = ListKey.Contains(search[i]);
+                found[0, i] = listKey.Contains(search[i]);
                 times[0, i].Stop();
             }
 
@@ -154,7 +125,7 @@ namespace Lab11
                 times[1, i] = new Stopwatch();
                 times[1, i].Start();
 
-                found[1, i] = ListString.Contains(search[i].ToString());
+                found[1, i] = listString.Contains(search[i].ToString());
                 times[1, i].Stop();
             }
 
@@ -164,7 +135,7 @@ namespace Lab11
                 times[2, i] = new Stopwatch();
                 times[2, i].Start();
 
-                found[2, i] = DictTypes.ContainsKey(search[i]);
+                found[2, i] = dictTypes.ContainsKey(search[i]);
                 times[2, i].Stop();
             }
 
@@ -174,7 +145,7 @@ namespace Lab11
                 times[3, i] = new Stopwatch();
                 times[3, i].Start();
 
-                found[3, i] = DictString.ContainsKey(search[i].ToString());
+                found[3, i] = dictString.ContainsKey(search[i].ToString());
                 times[3, i].Stop();
             }
 
@@ -184,7 +155,7 @@ namespace Lab11
                 times[4, i] = new Stopwatch();
                 times[4, i].Start();
 
-                found[4, i] = DictTypes.ContainsValue(toys[i]);
+                found[4, i] = dictTypes.ContainsValue(toys[i]);
                 times[4, i].Stop();
             }
 
@@ -193,10 +164,11 @@ namespace Lab11
 
         private void PrintResults(ref Stopwatch[,] times, ref bool[,] found)
         {
+            Console.WriteLine("Коллекция1: LinkedList; Коллекция2: Dictionary\nTKey: Goods; TValue: Toys\n");
             string[] collNames = { "Коллекция1<TKey>", "Коллекция1<string>", "Коллекция2<TKey, TValue>", "Коллекция2<string, TValue>", "Коллекция2<TKey, TValue>" };
             string[] funcName = { "Contains", "Contains", "ContainsKey", "ContainsKey", "ContainsValue" };
 
-            Console.WriteLine($"\n\nРазмер массива: {Size}\n");
+            Console.WriteLine($"Размер массива: {Size}\n");
             for(int i = 0; i<times.GetLength(0); i++)
             {
                 Console.WriteLine($"{collNames[i]}, метод: {funcName[i]}");
