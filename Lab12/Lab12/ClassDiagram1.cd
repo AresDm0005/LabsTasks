@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab12.BinaryTree">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Lab12.BinaryTree.Node" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>BinaryTree.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAIAAAAAAIAAgAAQASABEAAAAAEAAAABAAAg=</HashCode>
+      <FileName>BinaryTree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12.MyQueue&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Lab12.MyQueue&lt;T&gt;.Node" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyQueue.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Lab12.MyQueue&lt;T&gt;.Enumerator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>MyQueue.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AABAAAAAoAAEABAAQAAAAAQCAAAABAAEAAABAAAQQhA=</HashCode>
+      <FileName>MyQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Lab12.OneWayList">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Lab12.OneWayList.Node" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>OneWayList.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAgAAAAEAAAAAIJAQAAAAEAAAACEAAAABAAgA=</HashCode>
+      <FileName>OneWayList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12.Program">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAACAAAACAAEAAAAAAgAIAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12.TwoWayList">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Lab12.TwoWayList.Node" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>TwoWayList.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAABCAgAAAAEAAAAAIJAQAAAAAAAAACEAAAABAAgI=</HashCode>
+      <FileName>TwoWayList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

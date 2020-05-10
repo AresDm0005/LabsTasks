@@ -113,6 +113,13 @@ namespace Lab12
             return root;
         }
 
+        public Goods[] ToArray()
+        {
+            Goods[] arr = new Goods[Count];
+            ToArray(root, 0, Count, ref arr);
+            return arr;
+        }
+
         private void ToArray(Node node, int index, int size, ref Goods[] array)
         {
             if (node == null) return;

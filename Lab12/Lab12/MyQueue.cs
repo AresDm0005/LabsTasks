@@ -20,7 +20,7 @@ namespace Lab12
         }
 
         private readonly int basicCapacity = 4;
-        public int Capacity { get; private set; } // At least 1, Grow 2x
+        public int Capacity { get; private set; } // At least 4, Grow 2x
         public int Count { get; private set; }
 
         private Node head;
@@ -161,8 +161,7 @@ namespace Lab12
             {
                 get 
                 {
-                    if (curr != null) return curr.Data;
-                    throw new InvalidOperationException();
+                    return curr.Data;
                 } 
             }
 
@@ -170,18 +169,17 @@ namespace Lab12
             {
                 get
                 {
-                    if (curr == null) throw new InvalidOperationException();
                     return new Node(curr.Data);
                 }
             }
 
             public bool MoveNext()
-            {
+            {             
                 if (curr == null)
                 {
                     curr = head;
                     return true;
-                }
+                }             
 
                 if(curr.Next != null)
                 {

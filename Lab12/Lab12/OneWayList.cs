@@ -56,7 +56,7 @@ namespace Lab12
         public void AddAt(int index, Goods item)
         {
             if (index < 0) throw new ArgumentOutOfRangeException("Index", "Index must be non negative number");
-            if (index >= Count) throw new ArgumentOutOfRangeException("Index", "Index must be less than or equal to size of the list");
+            if (index > Count) throw new ArgumentOutOfRangeException("Index", "Index must be less than or equal to size of the list");
                        
 
             if (index == 0) AddFirst(item);
@@ -76,6 +76,25 @@ namespace Lab12
                 node.Next = find.Next;
                 find.Next = node;
                 Count++;
+            }
+        }
+
+        public int PriceOf(int index)
+        {
+            if (head == null) return -1;
+            else if (index > Count || index < 0) return -1;
+            else
+            {
+                Node node = head;
+                int i = 0;
+
+                while (node != null & i < index)
+                {
+                    node = node.Next;
+                    i++;
+                }
+
+                return (node != null) ? node.Data.Price : -1;
             }
         }
 
@@ -110,6 +129,7 @@ namespace Lab12
 
         public void Remove(Goods item)
         {
+            if (head == null) throw new ArgumentException();
             Node find = head;
             Node prev = null;
 
