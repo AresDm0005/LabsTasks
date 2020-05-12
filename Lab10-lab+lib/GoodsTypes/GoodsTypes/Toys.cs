@@ -4,6 +4,14 @@ namespace GoodsTypes
 {
     public class Toys : Goods, ICloneable
     {
+        #region Значения для рандома
+        private static string[] titles = { "Медвежонок", "Мишки", "Кот", "Кукла", "Монополия", "Дженга", "Робот",
+            "Цивилизация", "Майнкрафт", "Приставка", "Балда", "Лего", "Паззлы", "Рыцари", "Карты", "Формула"};
+        private static string[] manufs = { "Hasbro", "Firaxis", "Mojang", "Сони", "Игрушечная", "Типография", "Настолки", 
+            "Pazzzles", "Нинтендо"};
+        private static string[] types = { "Настольная", "Мягкая", "Кукла", "Компьютерная", "На бумаге", "Конструктор", "Электронные" };
+        #endregion
+
         private int ageRestriction;
         private string type;
 
@@ -28,6 +36,13 @@ namespace GoodsTypes
         {
             AgeRestriction = 3;
             Type = "NotDetermined";
+        }
+        
+        public Toys(Random rand) 
+            : base(titles[rand.Next(titles.Length)], manufs[rand.Next(manufs.Length)], rand.Next(20, 1501), rand.Next(3, 50) * 150)
+        {
+            Type = types[rand.Next(types.Length)];
+            AgeRestriction = rand.Next(0, 19);
         }
 
         public Toys(string title, string manuf) : base(title, manuf)

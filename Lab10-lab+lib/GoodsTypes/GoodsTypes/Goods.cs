@@ -2,24 +2,7 @@
 using System.Collections;
 
 namespace GoodsTypes
-{
-    public interface IExecutable : ICloneable, IComparable
-    {
-        new int CompareTo(object obj);
-        int Compare(object obj1, object obj2);
-        new object Clone();
-        string ToString();
-        int TotalRevenue();
-        void Show();
-        void Rename(string rename);
-        void NewPrice(int price);
-        void DeliverMade(int quantity);
-        string Title();
-        string Manufacturer();
-        int Price();
-        int Quantity();
-    }
-
+{ 
     public class DescendingSortByRevenue : IComparer
     {
         int IComparer.Compare(object obj1, object obj2)
@@ -40,9 +23,19 @@ namespace GoodsTypes
         }
     }
 
-
-    public class Goods : IExecutable
+    public class Goods : ICloneable, IComparable
     {
+        #region Значения для рандома
+        private static string[] titles = { "Огурцы", "Томаты", "Салат", "Перец", "Ягоды", "Колбаса", "Сосиски",
+            "Сервелат", "Тушенка", "Консервы", "Яйца", "Пельмени", "Селёдка", "Треска", "Кетчуп",
+            "Майонез", "Сок", "Напиток", "Масло", "Соус", "Сыр", "Носки", "Ткань", "Костюмы", "Зонты",
+            "Книга", "Документы", "Медвежонок", "Мишки", "Кот", "Кукла", "Монополия", "Дженга", "Робот",
+            "Цивилизация", "Европа", "Майнкрафт", "Приставка"};
+        private static string[] manufs = { "Овощебаза", "Колхоз #1", "Мясокомбинат", "Птицеферма", "Рыбкино",
+            "Рикко", "Красавчик", "Молочка", "Нытва", "Кунгур",  "Ателье", "Санта", "Мастерская", "Типография", 
+            "МФЦ", "Hasbro", "Firaxis", "Mojang", "Сони", "Игрушечная"};
+        #endregion
+
         protected int price;
         protected int quantity;
         protected string manufacturer;
@@ -82,10 +75,18 @@ namespace GoodsTypes
 
         public Goods()
         {
-            Title = "NotDetermined";
-            Manufacturer = "NotDetermined";
+            Title = "Не установлено";
+            Manufacturer = "Не установлено";
             Price = 0;
             Quantity = 0;
+        }
+
+        public Goods(Random rand)
+        {
+            Title = titles[rand.Next(titles.Length)];
+            Manufacturer = manufs[rand.Next(manufs.Length)];
+            Price = rand.Next(20, 1501);
+            Quantity = rand.Next(3, 50) * 150;
         }
 
         public Goods(string title, string manuf)
@@ -133,7 +134,7 @@ namespace GoodsTypes
         
         public override string ToString()
         {
-            return $"Товар: {Title}, {Manufacturer}, {Price}р., {Quantity}";
+            return $"Товар: {Title}, {Manufacturer}, {Price}р., {Quantity} ед.";
         }
 
         public override bool Equals(object obj)
@@ -167,26 +168,6 @@ namespace GoodsTypes
         public virtual object Clone()
         {
             return new Goods(Title, Manufacturer, Price, Quantity);
-        }
-
-        string IExecutable.Title()
-        {
-            return Title;
-        }
-
-        string IExecutable.Manufacturer()
-        {
-            return Manufacturer;
-        }
-
-        int IExecutable.Price()
-        {
-            return Price;
-        }
-
-        int IExecutable.Quantity()
-        {
-            return Quantity;
         }
         #endregion
     }

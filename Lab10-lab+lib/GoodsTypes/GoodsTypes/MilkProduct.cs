@@ -4,6 +4,13 @@ namespace GoodsTypes
 {
     public class MilkProduct : FoodProduct
     {
+        #region Значения для рандома
+        private static string[] titles = { "Простоквашино", "Чудо", "Нытвенская", "Деревенское", "У бабушки", "Козье", "Село", 
+            "Кез", "Тофу", "Моцаре", "Чеддер" };
+        private static string[] manufs = { "Нытва", "Кунгур", "Билль-Вилль", "Молкомбинаты", "Сыродел"};
+        private static string[] types = { "Молоко", "Творог", "Сыр", "Кефир", "Ряженка", "Сметана" };
+        #endregion
+
         private string type;
         private double weight;
 
@@ -27,6 +34,13 @@ namespace GoodsTypes
         {
             Type = "Undetermined";
             Weight = 1.0;
+        }
+
+        public MilkProduct(Random rand)
+            : base(titles[rand.Next(titles.Length)], manufs[rand.Next(manufs.Length)], rand.Next(20, 1501), rand.Next(3, 50) * 150)
+        {
+            Type = types[rand.Next(types.Length)];
+            Weight = 2.1 * rand.NextDouble();
         }
 
         public MilkProduct(string title, string manuf) : base(title, manuf)

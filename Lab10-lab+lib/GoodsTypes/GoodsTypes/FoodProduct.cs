@@ -4,6 +4,14 @@ namespace GoodsTypes
 {
     public class FoodProduct : Goods
     {
+        #region Значения для рандома
+        private static string[] titles = { "Огурцы", "Томаты", "Салат", "Перец", "Ягоды", "Колбаса", "Сосиски",
+            "Сервелат", "Тушенка", "Консервы", "Яйца", "Пельмени", "Селёдка", "Треска", "Кетчуп",
+            "Майонез", "Сок", "Напиток", "Масло", "Соус", "Сыр"};
+        private static string[] manufs = { "Овощебаза", "Колхоз #1", "Мясокомбинат", "Птицеферма", "Рыбкино",
+            "Рикко", "Красавчик", "Молочка", "Нытва", "Кунгур"};
+        #endregion
+
         protected DateTime manufactured;
         protected int storageLife;
 
@@ -29,6 +37,13 @@ namespace GoodsTypes
             StorageLife = 168;
         }
 
+        public FoodProduct(Random rand)
+            : base(titles[rand.Next(titles.Length)], manufs[rand.Next(manufs.Length)], rand.Next(20, 1501), rand.Next(3, 50) * 150)
+        {
+            storageLife = rand.Next(24, 240);
+            manufactured = DateTime.Today - (new TimeSpan(0, (int)(storageLife * rand.NextDouble() * 2) , 0, 0));
+        }
+         
         public FoodProduct(string title, string manuf) : base(title, manuf)
         {
             Manufactured = DateTime.Today - (new TimeSpan(5, 12, 30, 0));
